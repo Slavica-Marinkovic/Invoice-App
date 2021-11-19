@@ -1,0 +1,79 @@
+.main-header {
+    width: 730px;
+    margin: 72px auto 65px auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.main-header-left h1 {
+    margin: 0;
+    font-size: 32px;
+    line-height: 36px;
+    font-weight: 700;
+    color: rgb(12, 14, 22);
+}
+.main-header-left p {
+    margin-top: 8px;
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 500;
+    color: rgb(136, 142, 176);
+}
+.main-header-right {
+    display: flex;
+    align-items: center;
+}
+.main-header-right p {
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 700;
+    color: rgb(12, 14, 22);
+    margin-right: 16px;
+}
+.main-header-right p:hover {
+    cursor: pointer;
+}
+.main-header-right > span {
+    margin-right: 40px;
+}
+.main-header-right > span {
+    cursor: pointer;
+}
+.newInvoice-btn {
+    display: flex;
+    align-items: center;
+    background-color: rgb(124,93,250);
+    border-radius: 24px;
+}
+.newInvoice-btn:hover {
+    cursor: pointer;
+    background-color: rgb(146,119,255);
+}
+.newInvoice-btn img{
+    padding: 11px;
+    border-radius: 50%;
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 8px 16px 8px 8px;
+}
+.newInvoice{
+    font-size: 12px;
+    line-height: 15px;
+    font-weight: 700;
+    color: rgb(255, 255, 255);
+    margin-right: 15px;
+}
+@media screen and (max-width: 550px) {
+    .main-header-left h1 {
+        font-size: 20px;
+        line-height: 22px;
+    }
+    .second-span {
+        display: none;
+    }
+    .newInvoice-btn img {
+        margin-right: 8px;
+    }
+}

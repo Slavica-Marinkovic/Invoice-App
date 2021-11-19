@@ -1,0 +1,72 @@
+.paid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 104px;
+    height: 40px;
+    color: white;
+    background-color: rgba(51,214,159,.0571);
+    color: #33d69f;
+    border-radius: 6px;
+}
+.paid span {
+    display: inline-block;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    background: #33d69f;
+}
+.paid p {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+}
+.pending {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 104px;
+    height: 40px;
+    color: white;
+    background: rgba(255,143,0,.0571);
+    color: #ff8f00;
+    border-radius: 6px;
+}
+.pending span {
+    display: inline-block;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    background: #ff8f00;
+}
+.pending p {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+}
+.draft {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 104px;
+    height: 40px;
+    color: white;
+    background: rgba(55,59,83,.0571);
+    color: #373b53;
+    border-radius: 6px;
+}
+.draft span {
+    display: inline-block;
+    min-width: 0.5rem;
+    min-height: 0.5rem;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+    background: #373b53;
+}
+.draft p {
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+}
