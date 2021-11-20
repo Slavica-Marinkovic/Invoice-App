@@ -101,7 +101,7 @@ color: #7E88C3;
     width: auto;
     margin-left: 20px;
 }
-@media screen and (max-width:550px) {
+@media screen and (max-width:630px) {
     .invoice-item-container {
         display: grid;
         justify-content: space-between;

@@ -4,6 +4,7 @@ import Header from "./Components/Header/Header";
 import InvoiceItemView from "./Components/InvoiceItemView/InvoiceItemView";
 import MainHeader from "./Components/MainHeader/MainHeader";
 import StatusView from "./Components/StatusView/StatusView";
+import EditInvoice from"./Components/EditInvoice/EditInvoice";
 
 const App = () => {
     return(
@@ -13,6 +14,7 @@ const App = () => {
         <InvoiceItemView />
         <StatusView />
         <AddInvoice />
+        <EditInvoice />
         </>
     )
 }

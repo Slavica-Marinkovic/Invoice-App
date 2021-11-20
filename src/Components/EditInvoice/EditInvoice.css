@@ -1,13 +1,12 @@
-.add-form-content {
+.edit-form-content {
+    /*display: none;*/
     padding: 56px;
-    width: 100%;
     max-width: 504px;
     background-color: #fff;
     border-radius: 0px 20px 20px 0px;
     margin-top: 80px;
     position: absolute;
     top: 0;
-    display: none;
 }
 .go-back {
     display: none;
@@ -22,14 +21,21 @@
 .go-back:hover {
     cursor: pointer;
 }
-.add-form-content h1 {
+.invoice-id {
     margin-top: 24px;
     font-size: 24px;
     line-height: 32px;
     font-weight: 700;
     margin-bottom: 48px;
+    letter-spacing: -0.25px;
 }
-.add-form-content h2 {
+.invoice-id span {
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 32px;
+    color: #888EB0;
+}
+.edit-form-content h2 {
     color: rgb(119, 127, 152);
 }
 .bill {
@@ -224,15 +230,15 @@ form input[type=text].input-item-total {
 .add-new-item:hover {
     background-color: rgb(223,227,250);
 }
-.add-form-bottom {
+.edit-form-bottom {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     width: 100%;
 }
 .save-btns {
     display: flex;
 }
-.discard {
+.cancel {
     font-family: 'Spartan', sans-serif;
     border-radius: 24px;
     border: none;
@@ -244,7 +250,7 @@ form input[type=text].input-item-total {
     width: 96px;
     height: 48px;
 }
-.discard:hover {
+.cancel:hover {
     cursor: pointer;
     background-color:rgb(223,227,250);
 }
@@ -284,11 +290,18 @@ form input[type=text].input-item-total {
     margin-left: 0.5rem;
 }
 
+@media screen and (min-width: 1440px){
+    .edit-form-content {
+        margin-left: 103px;
+        margin-top: 0;
+    }
+}
+
 @media screen and (max-width: 550px){
-    .add-form-content {
+    .edit-form-content {
         padding: 24px;
     }
-    .add-form-content h1 {
+    .edit-form-content h1 {
         margin-bottom: 24px;
     }
     .date-terms {
@@ -328,29 +341,11 @@ form input[type=text].input-item-total {
         max-width: 112px;
         margin-right: 7px;
     }
-    .save-send {
-        max-width: 112px;
-        margin-left: 0;
-        margin-right: 5px;
-    }
-    .discard {
-        max-width: 84px;
-        margin-right: 7px;
-    }
-
-    .add-form-bottom {
-        width: 90%;
-    }
     .go-back {
         display: block;
     }
 }
-@media screen and (min-width: 1440px){
-    .add-form-content {
-        margin-left: 103px;
-        margin-top: 0;
-    }
-}
+
 @media screen and (max-width: 340px) {
     .item-list-container {
         grid-template-rows: 1fr 1fr 1fr;
@@ -370,16 +365,5 @@ form input[type=text].input-item-total {
     }
     .item-delete {
         justify-self: end;
-    }
-    .save-draft {
-        max-width: 100px;
-        padding-right: 0;
-        padding-left: 0;
-        margin-right: 4px;
-    }
-    .save-send {
-        max-width: 100px;
-        padding-right: 0;
-        padding-left: 0;
     }
 }

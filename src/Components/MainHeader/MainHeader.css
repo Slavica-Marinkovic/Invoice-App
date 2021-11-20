@@ -1,5 +1,5 @@
 .main-header {
-    width: 730px;
+    max-width: 730px;
     margin: 72px auto 65px auto;
     display: flex;
     align-items: center;
@@ -19,9 +19,13 @@
     font-weight: 500;
     color: rgb(136, 142, 176);
 }
+.second-p {
+    display: none;
+}
 .main-header-right {
     display: flex;
     align-items: center;
+    position: relative;
 }
 .main-header-right p {
     font-size: 12px;
@@ -65,7 +69,78 @@
     color: rgb(255, 255, 255);
     margin-right: 15px;
 }
-@media screen and (max-width: 550px) {
+.status-modal {
+    display: none;
+    position: absolute;
+    top: 108%;
+    right: 48%;
+    width: 192px;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 24px 78px 24px 24px;
+}
+.status-modal > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.status-modal > div:last-of-type {
+    margin-bottom: 0;
+}
+
+input[type="checkbox"]{
+    appearance: none;
+    height: 16px;
+    width: 16px;
+    background-color: #dfe3fa;
+    border: 1px solid #dfe3fa;
+    border-radius: 2px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    position: relative;
+}
+label {
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 15px;
+    letter-spacing: -0.25px;
+    color: #0C0E16;
+    cursor: pointer;
+    padding-left: 13px;
+}
+input[type="checkbox"]::after{
+    content: url(/src/assets/icon-check.svg);
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    z-index: 2;
+    border-radius: 2px;
+    display: none;
+}
+input[type="checkbox"]:hover{
+    border: 1px solid #7C5DFA;
+}
+input[type="checkbox"]:checked::after{
+    display: block;
+    background-color: #7C5DFA;
+}
+
+@media screen and (max-width: 1440px) {
+    .main-header {
+        margin: 128px auto 65px auto;
+    }
+}
+@media screen and (max-width: 760px) {
+    .main-header {
+        width: 90%;
+    }
+}
+
+@media screen and (max-width: 570px) {
     .main-header-left h1 {
         font-size: 20px;
         line-height: 22px;
@@ -75,5 +150,26 @@
     }
     .newInvoice-btn img {
         margin-right: 8px;
+    }
+    .first-p {
+        display: none;
+    }
+    .second-p {
+        display: block;
+    }
+    .main-header-right > span {
+        margin-right: 20px;
+    }
+    .filter-span {
+        display: none;
+    }
+    .main-header-right p {
+        margin-right: 10px;
+    }
+    
+}
+@media screen and (max-width: 330px){
+    .main-header-right > span {
+        margin-right: 12px;
     }
 }
