@@ -123,3 +123,25 @@
     width: auto;
   }
 }
+@media screen and (max-width: 630px) {
+  .invoice-item-container {
+    display: grid;
+    justify-content: space-between;
+    padding: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 39px 23px 24px;
+    grid-template-areas:
+      'id client'
+      'date status'
+      'amount status';
+  }
+  .arrow-img {
+    display: none;
+  }
+  .client-name {
+    width: auto;
+  }
+  .status-wrapper {
+    width: auto;
+  }
+}

@@ -1,12 +1,13 @@
 .add-form-content {
   padding: 56px;
+  width: 100%;
   max-width: 504px;
   background-color: #fff;
   border-radius: 0px 20px 20px 0px;
   margin-top: 80px;
   position: absolute;
   top: 0;
-  z-index: 10;
+  display: none;
 }
 .go-back {
   display: none;
@@ -211,6 +212,7 @@ form input[type='text'].input-item-total {
   background: transparent;
   pointer-events: none;
   padding-left: 0;
+  padding-right: 0;
 }
 .add-new-item {
   width: 100%;
@@ -346,5 +348,43 @@ form input[type='text'].input-item-total {
   }
   .go-back {
     display: block;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .add-form-content {
+    margin-left: 103px;
+    margin-top: 0;
+  }
+}
+@media screen and (max-width: 340px) {
+  .item-list-container {
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 20px;
+    grid-template-areas:
+      'name name name name'
+      'qty price price price'
+      '. . total delete';
+    grid-column-gap: 0;
+  }
+  .item-total {
+    margin-left: auto;
+  }
+  .item-price {
+    width: auto;
+    margin-left: 16px;
+  }
+  .item-delete {
+    justify-self: end;
+  }
+  .save-draft {
+    max-width: 100px;
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: 4px;
+  }
+  .save-send {
+    max-width: 100px;
+    padding-right: 0;
+    padding-left: 0;
   }
 }
