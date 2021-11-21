@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import AddInvoice from './Components/AddInvoice/AddInvoice';
 import Header from './Components/Header/Header';
 import InvoiceItemView from './Components/InvoiceItemView/InvoiceItemView';
@@ -9,6 +9,17 @@ import data from './data.json';
 
 const App = () => {
   const [navOpen, setNavOpen] = useState(false);
+  const [filteredData, setFilteredData] = useState(data);
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [alert, setAlert] = useState(false);
+
+  const openDropDown = () => {
+    if (openDropdown) {
+      setOpenDropdown(false);
+      return;
+    }
+    setOpenDropdown(true);
+  };
 
   const updateNavOpen = () => {
     setNavOpen(true);
@@ -18,25 +29,51 @@ const App = () => {
     setNavOpen(false);
   };
 
+  const filterByStatus = (filters) => {
+    if (filters.length === 0) {
+      setFilteredData(data);
+      return;
+    }
+
+    const newData = [];
+    data.map((item) => {
+      if (filters.some((v) => item.status.includes(v))) {
+        newData.push(item);
+      }
+    });
+    setFilteredData(newData);
+  };
+
+  useEffect(() => {
+    if (alert) {
+      setOpenDropdown(false);
+    }
+  }, [alert]);
+
   return (
-    <>
+    <div>
       {navOpen ? <AddInvoice updateNav={updateNavClose} /> : null}
       <Header />
       <div
         style={{ opacity: navOpen ? '0.5' : '1' }}
-        onClick={() => {
+        onClick={(e) => {
           if (navOpen) {
             setNavOpen(false);
           }
         }}
       >
-        <MainHeader updateNav={updateNavOpen} />
-        {data.map((item) => {
+        <MainHeader
+          updateNav={updateNavOpen}
+          filterByStatus={filterByStatus}
+          openDropDown={openDropDown}
+          openDropdown={openDropdown}
+        />
+        {filteredData.map((item) => {
           return <InvoiceItemView data={item} />;
         })}
         <StatusView />
       </div>
-    </>
+    </div>
   );
 };
 

@@ -7,7 +7,7 @@
   margin-top: 80px;
   position: absolute;
   top: 0;
-  display: none;
+  z-index: 10;
 }
 .go-back {
   display: none;

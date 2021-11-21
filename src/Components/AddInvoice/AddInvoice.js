@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './AddInvoice.css';
 import arrowLeft from '../../assets/icon-arrow-left.svg';
 import arrowDown from '../../assets/icon-arrow-down.svg';
@@ -20,6 +20,7 @@ const AddInvoice = (props) => {
   const [itemList, setItemList] = useState([
     <Item id={Math.random()} removeLastItem={removeLastItem} />,
   ]);
+
   return (
     <div className="add-form-content">
       <div className="go-back">
