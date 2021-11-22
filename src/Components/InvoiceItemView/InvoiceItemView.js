@@ -1,10 +1,18 @@
 import React from 'react';
 import './InvoiceItemView.css';
 import rightArrow from '../../assets/icon-arrow-right.svg';
+import { useHistory } from 'react-router-dom';
 
 const InvoiceItemView = (props) => {
+  const history = useHistory();
+
+  const routeChange = () => {
+    let path = props.data.id;
+    history.push(path);
+  };
+
   return (
-    <div className="invoice-list">
+    <div className="invoice-list" onClick={routeChange}>
       <div className="invoice-item-container">
         <div className="id">
           <span>#</span>

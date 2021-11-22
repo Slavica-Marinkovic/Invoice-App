@@ -3,8 +3,67 @@ import './AddInvoice.css';
 import arrowLeft from '../../assets/icon-arrow-left.svg';
 import arrowDown from '../../assets/icon-arrow-down.svg';
 import Item from './Item/Item';
+import { useDispatch } from 'react-redux';
+import * as actions from '../../store/actions/actions';
 
 const AddInvoice = (props) => {
+  const dispatch = useDispatch();
+  const [address, setAddress] = useState('');
+  const [city, setCity] = useState('');
+  const [postalCode, setPostalCode] = useState('');
+  const [country, setCountry] = useState('');
+  const [name, setName] = useState('');
+  const [clientAddress, setClientAddress] = useState('');
+  const [clientEmail, setClientEmail] = useState('');
+  const [clientCity, setClientCity] = useState('');
+  const [clientPostCode, setClientPostCode] = useState('');
+  const [clientCountry, setClientCountry] = useState('');
+  const [date, setDate] = useState();
+  const [description, setDescription] = useState('');
+
+  const saveDraft = () => {
+    props.updateNav();
+
+    dispatch(
+      actions.saveDraft(
+        'draft',
+        address,
+        city,
+        postalCode,
+        country,
+        name,
+        clientAddress,
+        clientEmail,
+        clientCity,
+        clientPostCode,
+        clientCountry,
+        date,
+        description
+      )
+    );
+  };
+
+  const saveSend = () => {
+    props.updateNav();
+    dispatch(
+      actions.saveSend(
+        'pending',
+        address,
+        city,
+        postalCode,
+        country,
+        name,
+        clientAddress,
+        clientEmail,
+        clientCity,
+        clientPostCode,
+        clientCountry,
+        date,
+        description
+      )
+    );
+  };
+
   const addNewItem = () => {
     setItemList([
       ...itemList,
@@ -20,7 +79,6 @@ const AddInvoice = (props) => {
   const [itemList, setItemList] = useState([
     <Item id={Math.random()} removeLastItem={removeLastItem} />,
   ]);
-
   return (
     <div className="add-form-content">
       <div className="go-back">
@@ -37,32 +95,62 @@ const AddInvoice = (props) => {
         <label htmlFor="street-from" className="labels">
           Street Address
         </label>
-        <input type="text" name="street-from" className="input-street-from" />
+        <input
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          type="text"
+          name="street-from"
+          className="input-street-from"
+        />
         <div className="place">
           <div>
             <label htmlFor="city" className="labels">
               City
             </label>
-            <input type="text" className="input-city" name="city" />
+            <input
+              value={city}
+              onChange={(e) => setCity(e.target.value)}
+              type="text"
+              className="input-city"
+              name="city"
+            />
           </div>
           <div>
             <label htmlFor="post-code" className="labels">
               Post Code
             </label>
-            <input type="text" className="input-post-code" name="post-code" />
+            <input
+              value={postalCode}
+              onChange={(e) => setPostalCode(e.target.value)}
+              type="text"
+              className="input-post-code"
+              name="post-code"
+            />
           </div>
           <div>
             <label htmlFor="country" className="labels">
               Country
             </label>
-            <input type="text" className="input-country" name="country" />
+            <input
+              value={country}
+              onChange={(e) => setCountry(e.target.value)}
+              type="text"
+              className="input-country"
+              name="country"
+            />
           </div>
         </div>
         <p className="bill">Bill to</p>
         <label htmlFor="client-name" className="labels">
           Client's Name
         </label>
-        <input type="text" name="client-name" className="input-client-name" />
+        <input
+          type="text"
+          name="client-name"
+          className="input-client-name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <label htmlFor="client-email" className="labels">
           Client's Email
         </label>
@@ -71,11 +159,19 @@ const AddInvoice = (props) => {
           name="client-email"
           className="input-client-email"
           placeholder="e.g. email@example.com"
+          value={clientEmail}
+          onChange={(e) => setClientEmail(e.target.value)}
         />
         <label htmlFor="street-to" className="labels">
           Street Address
         </label>
-        <input type="text" name="street-to" className="input-street-to" />
+        <input
+          type="text"
+          name="street-to"
+          className="input-street-to"
+          value={clientAddress}
+          onChange={(e) => setClientAddress(e.target.value)}
+        />
         <div className="place">
           <div>
             <label htmlFor="city-client" className="labels">
@@ -85,6 +181,8 @@ const AddInvoice = (props) => {
               type="text"
               className="input-city-client"
               name="city-client"
+              value={clientCity}
+              onChange={(e) => setClientCity(e.target.value)}
             />
           </div>
           <div>
@@ -95,6 +193,8 @@ const AddInvoice = (props) => {
               type="text"
               className="input-post-code-client"
               name="post-code-client"
+              value={clientPostCode}
+              onChange={(e) => setClientPostCode(e.target.value)}
             />
           </div>
           <div>
@@ -105,6 +205,8 @@ const AddInvoice = (props) => {
               type="text"
               className="input-country-client"
               name="country-client"
+              value={clientCountry}
+              onChange={(e) => setClientCountry(e.target.value)}
             />
           </div>
         </div>
@@ -117,6 +219,8 @@ const AddInvoice = (props) => {
               type="date"
               className="input-invoice-date"
               name="invoice-date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
           <div style={{ position: 'relative' }}>
@@ -149,6 +253,8 @@ const AddInvoice = (props) => {
           placeholder="e.g. Graphic Design Service"
           className="input-project-description"
           name="project-description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         />
         <h2>Item List</h2>
         <div className="item-list-wrapper">
@@ -180,8 +286,12 @@ const AddInvoice = (props) => {
             Discard
           </button>
           <div className="save-btns">
-            <button className="save-draft">Save as Draft</button>
-            <button className="save-send">Save &amp; Send</button>
+            <button className="save-draft" onClick={saveDraft}>
+              Save as Draft
+            </button>
+            <button className="save-send" onClick={saveSend}>
+              Save &amp; Send
+            </button>
           </div>
         </div>
       </form>
