@@ -133,6 +133,7 @@ input::placeholder {
   border-radius: 0.5rem;
   overflow: hidden;
 }
+
 .dropdown-option {
   z-index: 2;
   font-size: 0.75rem;

@@ -257,7 +257,6 @@ const AddInvoice = (props) => {
                   className="dropdown-option"
                   onClick={() => {
                     setOpenDropdown(false);
-
                     setDropdownChoice(7);
                   }}
                 >
@@ -267,7 +266,6 @@ const AddInvoice = (props) => {
                   className="dropdown-option"
                   onClick={() => {
                     setOpenDropdown(false);
-
                     setDropdownChoice(14);
                   }}
                 >
@@ -277,7 +275,6 @@ const AddInvoice = (props) => {
                   className="dropdown-option"
                   onClick={() => {
                     setOpenDropdown(false);
-
                     setDropdownChoice(30);
                   }}
                 >

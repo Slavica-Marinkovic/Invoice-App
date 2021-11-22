@@ -5,6 +5,7 @@ import InvoiceItemView from '../Components/InvoiceItemView/InvoiceItemView';
 import MainHeader from '../Components/MainHeader/MainHeader';
 import StatusView from '../Components/StatusView/StatusView';
 import EditInvoice from '../Components/EditInvoice/EditInvoice';
+import Empty from '../Components/Empty/Empty-invoices';
 
 import { useSelector } from 'react-redux';
 import DeleteItem from '../Components/DeleteItems/DeleteItem';
@@ -48,10 +49,6 @@ const Home = () => {
     setFilteredData(newData);
   };
 
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
-
   const saveDraft = () => {};
 
   const saveSend = () => {};
@@ -87,9 +84,13 @@ const Home = () => {
           openDropDown={openDropDown}
           openDropdown={openDropdown}
         />
-        {filteredData.map((item) => {
-          return <InvoiceItemView data={item} />;
-        })}
+        {filteredData.length > 0 ? (
+          filteredData.map((item) => {
+            return <InvoiceItemView data={item} />;
+          })
+        ) : (
+          <Empty />
+        )}
       </div>
     </div>
   );

@@ -58,44 +58,49 @@ const MainHeader = (props) => {
             </span>
           </p>
           <span>
-            <img src={downArrow} alt="down-arrow.svg" />
+            <img
+              style={{
+                transform: props.openDropdown ? 'rotate(180deg)' : 'rotate(0)',
+              }}
+              src={downArrow}
+              alt="down-arrow.svg"
+            />
           </span>
         </div>
         {props.openDropdown && (
           <div className="status-modal">
-              <div
-                style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                }}
-              >
-                <input
-                  type="checkbox"
-                  id="paid"
-                  checked={paidChecked}
-                  onChange={handlePaidChange}
-                ></input>
-                <label htmlFor="paid">Paid</label>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <input
-                  type="checkbox"
-                  id="pending"
-                  checked={pendingChecked}
-                  onChange={handlePendingChange}
-                ></input>
-                <label htmlFor="pending">Pending</label>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
-                <input
-                  type="checkbox"
-                  id="drafts"
-                  checked={draftsChecked}
-                  onChange={handleDraftsChange}
-                ></input>
-                <label htmlFor="drafts"> Drafts</label>
-              </div>
-            
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+              }}
+            >
+              <input
+                type="checkbox"
+                id="paid"
+                checked={paidChecked}
+                onChange={handlePaidChange}
+              ></input>
+              <label htmlFor="paid">Paid</label>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <input
+                type="checkbox"
+                id="pending"
+                checked={pendingChecked}
+                onChange={handlePendingChange}
+              ></input>
+              <label htmlFor="pending">Pending</label>
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <input
+                type="checkbox"
+                id="drafts"
+                checked={draftsChecked}
+                onChange={handleDraftsChange}
+              ></input>
+              <label htmlFor="drafts"> Drafts</label>
+            </div>
           </div>
         )}
 
