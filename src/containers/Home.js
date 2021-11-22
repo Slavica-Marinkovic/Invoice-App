@@ -9,6 +9,7 @@ import Empty from '../Components/Empty/Empty-invoices';
 
 import { useSelector } from 'react-redux';
 import DeleteItem from '../Components/DeleteItems/DeleteItem';
+import InvoiceDetails from '../Components/InvoiceDetails/InvoiceDetails'
 
 const Home = () => {
   const data = useSelector((state) => state.invoice.invoice);
@@ -92,6 +93,7 @@ const Home = () => {
           <Empty />
         )}
       </div>
+      <InvoiceDetails />
     </div>
   );
 };
