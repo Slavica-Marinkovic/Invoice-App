@@ -3,7 +3,7 @@ import './AddInvoice.css';
 import arrowLeft from '../../assets/icon-arrow-left.svg';
 import arrowDown from '../../assets/icon-arrow-down.svg';
 import Item from './Item/Item';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/actions';
 
 const AddInvoice = (props) => {
@@ -22,6 +22,7 @@ const AddInvoice = (props) => {
   const [description, setDescription] = useState('');
   const [openDropdown, setOpenDropdown] = useState(false);
   const [dropdownChoice, setDropdownChoice] = useState(7);
+  const items = useSelector((state) => state.invoice.items);
 
   const openDropDown = () => {
     if (openDropdown) {
@@ -50,7 +51,8 @@ const AddInvoice = (props) => {
         clientCountry,
         date,
         description,
-        dropdownChoice
+        dropdownChoice,
+        items
       )
     );
   };
@@ -72,29 +74,10 @@ const AddInvoice = (props) => {
         clientCountry,
         date,
         description,
-        dropdownChoice
+        dropdownChoice,
+        items
       )
     );
-  };
-
-  const addNewItem = () => {
-    setItemList([
-      ...itemList,
-      <Item removeLastItem={removeLastItem} id={Math.random()} />,
-    ]);
-    console.log(itemList);
-  };
-
-  const removeLastItem = (id) => {
-    console.log(itemList.length);
-  };
-
-  const [itemList, setItemList] = useState([
-    <Item id={Math.random()} removeLastItem={removeLastItem} />,
-  ]);
-
-  const changePaymentTerms = (terms) => {
-    setDropdownChoice(terms);
   };
 
   return (
@@ -263,25 +246,40 @@ const AddInvoice = (props) => {
               <div className="dropdown-items-fix">
                 <div
                   className="dropdown-option"
-                  onClick={() => setDropdownChoice(1)}
+                  onClick={() => {
+                    setOpenDropdown(false);
+                    setDropdownChoice(1);
+                  }}
                 >
                   Net 1 Day
                 </div>
                 <div
                   className="dropdown-option"
-                  onClick={() => setDropdownChoice(7)}
+                  onClick={() => {
+                    setOpenDropdown(false);
+
+                    setDropdownChoice(7);
+                  }}
                 >
                   Net 7 Days
                 </div>
                 <div
                   className="dropdown-option"
-                  onClick={() => setDropdownChoice(14)}
+                  onClick={() => {
+                    setOpenDropdown(false);
+
+                    setDropdownChoice(14);
+                  }}
                 >
                   Net 14 Days
                 </div>
                 <div
                   className="dropdown-option"
-                  onClick={() => setDropdownChoice(30)}
+                  onClick={() => {
+                    setOpenDropdown(false);
+
+                    setDropdownChoice(30);
+                  }}
                 >
                   Net 30 Days
                 </div>
@@ -317,11 +315,14 @@ const AddInvoice = (props) => {
             </label>
           </div>
           <div className="item-list-container">
-            {itemList.map((item) => {
-              return item;
+            {items.map((item) => {
+              return <Item key={item.id} data={item} />;
             })}
           </div>
-          <button className="add-new-item" onClick={addNewItem}>
+          <button
+            className="add-new-item"
+            onClick={() => dispatch(actions.addItems())}
+          >
             + Add New Item
           </button>
         </div>

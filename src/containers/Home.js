@@ -47,6 +47,10 @@ const Home = () => {
     setFilteredData(newData);
   };
 
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   const saveDraft = () => {};
 
   const saveSend = () => {};

@@ -1,7 +1,10 @@
 export const SAVE_DRAFT = 'SAVE_DRAFT';
 export const SAVE_SEND = 'SAVE_SEND';
+export const ADD_ITEMS = 'ADD_ITEMS';
+export const DELETE_ITEMS = 'DELETE_ITEMS';
+export const SAVE_ITEM = 'SAVE_ITEM';
 
-const makeid = () => {
+export const makeid = () => {
   let result = '';
   const characters =
     'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -32,7 +35,8 @@ export const saveDraft = (
   clientCountry,
   date,
   description,
-  dropdownChoice
+  dropdownChoice,
+  items
 ) => {
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
@@ -64,14 +68,7 @@ export const saveDraft = (
       postCode: clientPostCode,
       country: clientCountry,
     },
-    items: [
-      {
-        name: 'Web Design',
-        quantity: 1,
-        price: 6155.91,
-        total: 6155.91,
-      },
-    ], //TODO
+    items: items, //TODO
     total: 6155.91, //TODO
   };
 
@@ -95,7 +92,8 @@ export const saveSend = (
   clientCountry,
   date,
   description,
-  dropdownChoice
+  dropdownChoice,
+  items
 ) => {
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
@@ -109,7 +107,7 @@ export const saveSend = (
     createdAt: today,
     paymentDue: date,
     description: description,
-    paymentTerms: 30, // TODO
+    paymentTerms: dropdownChoice,
     clientName: name,
     clientEmail: clientEmail,
     status: status,
@@ -125,19 +123,39 @@ export const saveSend = (
       postCode: clientPostCode,
       country: clientCountry,
     },
-    items: [
-      {
-        name: 'Web Design',
-        quantity: 1,
-        price: 6155.91,
-        total: 6155.91,
-      },
-    ], //TODO
+    items: items,
     total: 6155.91, //TODO
   };
 
   return {
     type: SAVE_SEND,
     payload: newInvoice,
+  };
+};
+
+export const addItems = () => {
+  return {
+    type: ADD_ITEMS,
+  };
+};
+
+export const deleteItems = (id) => {
+  return {
+    type: DELETE_ITEMS,
+    payload: id,
+  };
+};
+
+export const saveItem = (name, qty, price, total, id) => {
+  const newItem = {
+    name: name,
+    quantity: qty,
+    price: price,
+    total: Number(qty) * Number(price),
+    id: id,
+  };
+  return {
+    type: SAVE_ITEM,
+    payload: newItem,
   };
 };
