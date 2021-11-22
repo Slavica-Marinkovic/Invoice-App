@@ -20,6 +20,17 @@ const AddInvoice = (props) => {
   const [clientCountry, setClientCountry] = useState('');
   const [date, setDate] = useState();
   const [description, setDescription] = useState('');
+  const [openDropdown, setOpenDropdown] = useState(false);
+  const [dropdownChoice, setDropdownChoice] = useState(7);
+
+  const openDropDown = () => {
+    if (openDropdown) {
+      setOpenDropdown(false);
+      return;
+    }
+    setOpenDropdown(true);
+    console.log(openDropdown);
+  };
 
   const saveDraft = () => {
     props.updateNav();
@@ -38,7 +49,8 @@ const AddInvoice = (props) => {
         clientPostCode,
         clientCountry,
         date,
-        description
+        description,
+        dropdownChoice
       )
     );
   };
@@ -59,7 +71,8 @@ const AddInvoice = (props) => {
         clientPostCode,
         clientCountry,
         date,
-        description
+        description,
+        dropdownChoice
       )
     );
   };
@@ -79,6 +92,11 @@ const AddInvoice = (props) => {
   const [itemList, setItemList] = useState([
     <Item id={Math.random()} removeLastItem={removeLastItem} />,
   ]);
+
+  const changePaymentTerms = (terms) => {
+    setDropdownChoice(terms);
+  };
+
   return (
     <div className="add-form-content">
       <div className="go-back">
@@ -227,22 +245,48 @@ const AddInvoice = (props) => {
             <label htmlFor="payment-terms" className="labels">
               Payment Terms
             </label>
-            <div className="select-dropdown">
+            <div className="select-dropdown" onClick={openDropDown}>
               <input
                 readOnly
-                defaultValue="Net 7 Days"
+                value={
+                  'Net ' +
+                  dropdownChoice +
+                  (dropdownChoice === 1 ? ' day' : ' days')
+                }
                 type="text"
                 className="input-payment-terms"
                 name="payment-terms"
               />
               <img src={arrowDown} alt="down-arrow" />
             </div>
-            <div className="dropdown-items">
-              <div className="dropdown-option">Net 1 Day</div>
-              <div className="dropdown-option">Net 7 Days</div>
-              <div className="dropdown-option">Net 14 Days</div>
-              <div className="dropdown-option">Net 30 Days</div>
-            </div>
+            {openDropdown && (
+              <div className="dropdown-items-fix">
+                <div
+                  className="dropdown-option"
+                  onClick={() => setDropdownChoice(1)}
+                >
+                  Net 1 Day
+                </div>
+                <div
+                  className="dropdown-option"
+                  onClick={() => setDropdownChoice(7)}
+                >
+                  Net 7 Days
+                </div>
+                <div
+                  className="dropdown-option"
+                  onClick={() => setDropdownChoice(14)}
+                >
+                  Net 14 Days
+                </div>
+                <div
+                  className="dropdown-option"
+                  onClick={() => setDropdownChoice(30)}
+                >
+                  Net 30 Days
+                </div>
+              </div>
+            )}
           </div>
         </div>
         <label htmlFor="project-description" className="labels">

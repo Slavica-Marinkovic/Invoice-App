@@ -123,7 +123,7 @@ input::placeholder {
   -webkit-transform: translateY(-50%);
   transform: translateY(-50%);
 }
-.dropdown-items {
+.dropdown-items-fix {
   position: absolute;
   z-index: 4;
   width: 100%;
@@ -132,7 +132,6 @@ input::placeholder {
   background: #fff;
   border-radius: 0.5rem;
   overflow: hidden;
-  display: none;
 }
 .dropdown-option {
   z-index: 2;

@@ -31,7 +31,8 @@ export const saveDraft = (
   clientPostCode,
   clientCountry,
   date,
-  description
+  description,
+  dropdownChoice
 ) => {
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
@@ -40,12 +41,14 @@ export const saveDraft = (
 
   today = yyyy + '-' + mm + '-' + dd;
 
+  console.log(dropdownChoice);
+
   const newInvoice = {
     id: makeid(6),
     createdAt: today,
     paymentDue: date,
     description: description,
-    paymentTerms: 30, // TODO
+    paymentTerms: dropdownChoice, // TODO
     clientName: name,
     clientEmail: clientEmail,
     status: status,
@@ -91,7 +94,8 @@ export const saveSend = (
   clientPostCode,
   clientCountry,
   date,
-  description
+  description,
+  dropdownChoice
 ) => {
   let today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
