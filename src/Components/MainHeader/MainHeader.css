@@ -70,7 +70,6 @@
   margin-right: 15px;
 }
 .status-modal {
-  display: none;
   position: absolute;
   top: 108%;
   right: 48%;
@@ -127,30 +126,6 @@ input[type='checkbox']:hover {
 input[type='checkbox']:checked::after {
   display: block;
   background-color: #7c5dfa;
-}
-
-.dropdown {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 150px;
-  z-index: 100;
-  border: 1px solid rgba(0, 0, 0, 0.04);
-  box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.14);
-}
-
-.dropdown ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-.dropdown ul li {
-  padding: 8px 12px;
-}
-
-.dropdown ul li:hover {
-  background-color: rgba(0, 0, 0, 0.14);
-  cursor: pointer;
 }
 
 @media screen and (max-width: 1440px) {

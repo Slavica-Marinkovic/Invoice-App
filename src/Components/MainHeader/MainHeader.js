@@ -62,8 +62,7 @@ const MainHeader = (props) => {
           </span>
         </div>
         {props.openDropdown && (
-          <div class="dropdown">
-            <ul>
+          <div className="status-modal">
               <div
                 style={{
                   display: 'flex',
@@ -72,45 +71,34 @@ const MainHeader = (props) => {
               >
                 <input
                   type="checkbox"
+                  id="paid"
                   checked={paidChecked}
                   onChange={handlePaidChange}
                 ></input>
-                <label>Paid</label>
+                <label htmlFor="paid">Paid</label>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="checkbox"
+                  id="pending"
                   checked={pendingChecked}
                   onChange={handlePendingChange}
                 ></input>
-                <label>Pending</label>
+                <label htmlFor="pending">Pending</label>
               </div>
               <div style={{ display: 'flex', alignItems: 'center' }}>
                 <input
                   type="checkbox"
+                  id="drafts"
                   checked={draftsChecked}
                   onChange={handleDraftsChange}
                 ></input>
-                <label> Drafts</label>
+                <label htmlFor="drafts"> Drafts</label>
               </div>
-            </ul>
+            
           </div>
         )}
 
-        <div className="status-modal">
-          <div>
-            <input type="checkbox" name="draft" id="draft"></input>
-            <label htmlFor="draft">Draft</label>
-          </div>
-          <div>
-            <input type="checkbox" name="pending" id="pending"></input>
-            <label htmlFor="pending">Pending</label>
-          </div>
-          <div>
-            <input type="checkbox" name="paid" id="paid"></input>
-            <label htmlFor="paid">Paid</label>
-          </div>
-        </div>
         <div className="newInvoice-btn" onClick={props.updateNav}>
           <img src={iconPlus} alt="icon-plus.svg" />
           <span className="newInvoice">

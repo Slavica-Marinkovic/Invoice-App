@@ -7,6 +7,7 @@ import StatusView from '../Components/StatusView/StatusView';
 import EditInvoice from '../Components/EditInvoice/EditInvoice';
 
 import { useSelector } from 'react-redux';
+import DeleteItem from '../Components/DeleteItems/DeleteItem';
 
 const Home = () => {
   const data = useSelector((state) => state.invoice.invoice);
@@ -85,7 +86,6 @@ const Home = () => {
         {filteredData.map((item) => {
           return <InvoiceItemView data={item} />;
         })}
-        <StatusView />
       </div>
     </div>
   );
