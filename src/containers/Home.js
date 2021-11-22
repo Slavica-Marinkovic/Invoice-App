@@ -83,6 +83,7 @@ const Home = () => {
           filterByStatus={filterByStatus}
           openDropDown={openDropDown}
           openDropdown={openDropdown}
+          data={data}
         />
         {filteredData.length > 0 ? (
           filteredData.map((item) => {
