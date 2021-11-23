@@ -8,6 +8,7 @@ import * as actions from '../../store/actions/actions';
 import DeleteItems from '../DeleteItems/DeleteItem';
 import EditInvoice from '../EditInvoice/EditInvoice';
 import Header from '../Header/Header';
+import Backdrop from '../BackDrop/Backdrop';
 
 const InvoiceDetails = () => {
   const history = useHistory();
@@ -98,6 +99,9 @@ const InvoiceDetails = () => {
   return (
     <>
       <Header />
+      {editModal || openModal ? (
+        <Backdrop close={editModal ? closeEditModal : closeModal} />
+      ) : null}
       {editModal ? (
         <EditInvoice close={closeEditModal} invoice={invoice} />
       ) : null}

@@ -6,6 +6,7 @@ import MainHeader from '../Components/MainHeader/MainHeader';
 import StatusView from '../Components/StatusView/StatusView';
 import EditInvoice from '../Components/EditInvoice/EditInvoice';
 import Empty from '../Components/Empty/Empty-invoices';
+import BackDrop from '../Components/BackDrop/Backdrop';
 
 import { useSelector } from 'react-redux';
 import DeleteItem from '../Components/DeleteItems/DeleteItem';
@@ -63,6 +64,7 @@ const Home = () => {
 
   return (
     <div>
+      {navOpen ? <BackDrop close={updateNavClose} /> : null}
       {navOpen ? (
         <AddInvoice
           updateNav={updateNavClose}
