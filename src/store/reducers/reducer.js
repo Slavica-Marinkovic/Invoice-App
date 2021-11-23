@@ -65,7 +65,6 @@ export default (state = initialState, action) => {
         (item) => item.id === action.payload
       );
       invoiceFound.status = 'paid';
-      console.log('DONE');
       return { ...state, items: [...state.items] };
     case DELETE_INVOICE:
       const newInvoice = state.invoice.filter(
