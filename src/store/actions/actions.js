@@ -3,6 +3,10 @@ export const SAVE_SEND = 'SAVE_SEND';
 export const ADD_ITEMS = 'ADD_ITEMS';
 export const DELETE_ITEMS = 'DELETE_ITEMS';
 export const SAVE_ITEM = 'SAVE_ITEM';
+export const MARK_PAID = 'MARK_PAID';
+export const DELETE_INVOICE = 'DELETE_INVOICE';
+export const SET_ITEMS = 'SET_ITEMS';
+export const SAVE_CHANGES = 'SAVE_CHANGES';
 
 export const makeid = () => {
   let result = '';
@@ -45,14 +49,17 @@ export const saveDraft = (
 
   today = yyyy + '-' + mm + '-' + dd;
 
-  console.log(dropdownChoice);
+  let totalPrice = 0;
+  items.map((item) => {
+    totalPrice += Number(item.total);
+  });
 
   const newInvoice = {
     id: makeid(6),
     createdAt: today,
     paymentDue: date,
     description: description,
-    paymentTerms: dropdownChoice, // TODO
+    paymentTerms: dropdownChoice,
     clientName: name,
     clientEmail: clientEmail,
     status: status,
@@ -68,8 +75,8 @@ export const saveDraft = (
       postCode: clientPostCode,
       country: clientCountry,
     },
-    items: items, //TODO
-    total: 6155.91, //TODO
+    items: items,
+    total: totalPrice.toFixed(2),
   };
 
   return {
@@ -102,6 +109,11 @@ export const saveSend = (
 
   today = yyyy + '-' + mm + '-' + dd;
 
+  let totalPrice = 0;
+  items.map((item) => {
+    totalPrice += Number(item.total);
+  });
+
   const newInvoice = {
     id: makeid(6),
     createdAt: today,
@@ -124,7 +136,7 @@ export const saveSend = (
       country: clientCountry,
     },
     items: items,
-    total: 6155.91, //TODO
+    total: totalPrice, //TODO
   };
 
   return {
@@ -157,5 +169,81 @@ export const saveItem = (name, qty, price, total, id) => {
   return {
     type: SAVE_ITEM,
     payload: newItem,
+  };
+};
+
+export const markPaid = (id) => {
+  return {
+    type: MARK_PAID,
+    payload: id,
+  };
+};
+
+export const deleteInvoice = (id) => {
+  return {
+    type: DELETE_INVOICE,
+    payload: id,
+  };
+};
+
+export const setItems = (items) => {
+  return {
+    type: SET_ITEMS,
+    payload: items,
+  };
+};
+
+export const saveChanges = (
+  status,
+  address,
+  city,
+  postalCode,
+  country,
+  name,
+  clientAddress,
+  clientEmail,
+  clientCity,
+  clientPostCode,
+  clientCountry,
+  date,
+  description,
+  dropdownChoice,
+  items,
+  createdAt,
+  id
+) => {
+  let totalPrice = 0;
+  items.map((item) => {
+    totalPrice += Number(item.total);
+  });
+  const newInvoice = {
+    id: id,
+    createdAt: createdAt,
+    paymentDue: date,
+    description: description,
+    paymentTerms: dropdownChoice,
+    clientName: name,
+    clientEmail: clientEmail,
+    status: status,
+    senderAddress: {
+      street: address,
+      city: city,
+      postCode: postalCode,
+      country: country,
+    },
+    clientAddress: {
+      street: clientAddress,
+      city: clientCity,
+      postCode: clientPostCode,
+      country: clientCountry,
+    },
+    items: items,
+    total: totalPrice,
+  };
+
+  return {
+    type: SAVE_CHANGES,
+    payload: newInvoice,
+    id: id,
   };
 };
