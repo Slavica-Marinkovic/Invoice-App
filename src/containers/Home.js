@@ -11,6 +11,7 @@ import BackDrop from '../Components/BackDrop/Backdrop';
 import { useSelector } from 'react-redux';
 import DeleteItem from '../Components/DeleteItems/DeleteItem';
 import InvoiceDetails from '../Components/InvoiceDetails/InvoiceDetails';
+import Transparent from '../Components/Transparent/Transparent';
 
 const Home = () => {
   const data = useSelector((state) => state.invoice.invoice);
@@ -34,6 +35,10 @@ const Home = () => {
 
   const updateNavClose = () => {
     setNavOpen(false);
+  };
+
+  const closeDropdown = () => {
+    setOpenDropdown(false);
   };
 
   const filterByStatus = (filters) => {
@@ -64,6 +69,7 @@ const Home = () => {
 
   return (
     <div>
+      {openDropdown ? <Transparent close={closeDropdown} /> : null}
       {navOpen ? <BackDrop close={updateNavClose} /> : null}
       {navOpen ? (
         <AddInvoice

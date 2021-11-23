@@ -31,7 +31,6 @@ const AddInvoice = (props) => {
       return;
     }
     setOpenDropdown(true);
-    console.log(openDropdown);
   };
 
   const setError = () => {
@@ -154,8 +153,14 @@ const AddInvoice = (props) => {
     );
   };
 
+  const closeDropdown = () => {
+    if (openDropdown) {
+      setOpenDropdown(false);
+    }
+  };
+
   return (
-    <div className="add-form-content">
+    <div className="add-form-content" onClick={closeDropdown}>
       <div className="go-back">
         <img src={arrowLeft} alt="icon-arrow-left.svg" />
         <span>Go back</span>
