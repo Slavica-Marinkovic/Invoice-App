@@ -5,6 +5,8 @@ import arrowDown from '../../assets/icon-arrow-down.svg';
 import Item from './Item/Item';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/actions';
+import Calendar from 'react-calendar'
+import '../Calendar/CalendarItem.css'
 
 const AddInvoice = (props) => {
   const dispatch = useDispatch();
@@ -203,9 +205,8 @@ const AddInvoice = (props) => {
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               type="text"
-              className={`input-post-code ${
-                postalCode === '' ? errorClass : ''
-              }`}
+              className={`input-post-code ${postalCode === '' ? errorClass : ''
+                }`}
               name="post-code"
             />
           </div>
@@ -239,9 +240,8 @@ const AddInvoice = (props) => {
         <input
           type="text"
           name="client-email"
-          className={`input-client-email ${
-            !validateEmail(clientEmail) ? errorClass : ''
-          }`}
+          className={`input-client-email ${!validateEmail(clientEmail) ? errorClass : ''
+            }`}
           placeholder="e.g. email@example.com"
           value={clientEmail}
           onChange={(e) => setClientEmail(e.target.value)}
@@ -252,9 +252,8 @@ const AddInvoice = (props) => {
         <input
           type="text"
           name="street-to"
-          className={`input-street-to ${
-            clientAddress === '' ? errorClass : ''
-          }`}
+          className={`input-street-to ${clientAddress === '' ? errorClass : ''
+            }`}
           value={clientAddress}
           onChange={(e) => setClientAddress(e.target.value)}
         />
@@ -265,9 +264,8 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className={`input-city-client ${
-                clientCity === '' ? errorClass : ''
-              }`}
+              className={`input-city-client ${clientCity === '' ? errorClass : ''
+                }`}
               name="city-client"
               value={clientCity}
               onChange={(e) => setClientCity(e.target.value)}
@@ -279,9 +277,8 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className={`input-post-code-client ${
-                clientPostCode === '' ? errorClass : ''
-              }`}
+              className={`input-post-code-client ${clientPostCode === '' ? errorClass : ''
+                }`}
               name="post-code-client"
               value={clientPostCode}
               onChange={(e) => setClientPostCode(e.target.value)}
@@ -293,9 +290,8 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className={`input-country-client ${
-                clientCountry === '' ? errorClass : ''
-              }`}
+              className={`input-country-client ${clientCountry === '' ? errorClass : ''
+                }`}
               name="country-client"
               value={clientCountry}
               onChange={(e) => setClientCountry(e.target.value)}
@@ -307,13 +303,14 @@ const AddInvoice = (props) => {
             <label htmlFor="invoice-date" className="labels">
               Invoice Date
             </label>
-            <input
+            {/* <input
               type="date"
               className={`input-invoice-date ${!date ? errorClass : ''}`}
               name="invoice-date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
-            />
+            /> */}
+            <Calendar />
           </div>
           <div style={{ position: 'relative' }}>
             <label htmlFor="payment-terms" className="labels">
@@ -381,9 +378,8 @@ const AddInvoice = (props) => {
         <input
           type="text"
           placeholder="e.g. Graphic Design Service"
-          className={`input-project-description ${
-            description === '' ? errorClass : ''
-          }`}
+          className={`input-project-description ${description === '' ? errorClass : ''
+            }`}
           name="project-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -407,12 +403,14 @@ const AddInvoice = (props) => {
           <div className="item-list-container">
             {items.map((item) => {
               return (
-                <Item
-                  key={item.id}
-                  data={item}
-                  error={setError}
-                  errorClass={errorClass}
-                />
+                <div>
+                  <Item
+                    key={item.id}
+                    data={item}
+                    error={setError}
+                    errorClass={errorClass}
+                  />
+                </div>
               );
             })}
           </div>

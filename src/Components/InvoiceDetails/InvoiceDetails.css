@@ -1,9 +1,7 @@
 .invoice-details-wrapper {
   width: 100%;
   padding: 0 40px;
-  position: absoulte;
-  top: 50%;
-  left: 50%;
+  margin: 64px auto;
 }
 .invoice-details {
   max-width: 730px;
@@ -152,6 +150,11 @@
 }
 .details-id span {
   display: inline-block;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.8px;
+  color: #888EB0;
 }
 .sender-address {
   text-align: right;
@@ -271,6 +274,11 @@
   line-height: 32px;
   text-align: right;
   letter-spacing: -0.5px;
+}
+@media screen and (max-width: 1440px) {
+  .invoice-details-wrapper {
+    margin-top: 128px;
+  }
 }
 
 @media screen and (max-width: 800px) {
