@@ -6,8 +6,10 @@ import iconDelete from '../../assets/icon-delete.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import Item from '../AddInvoice/Item/Item';
 import * as actions from '../../store/actions/actions';
-import Calendar from 'react-calendar'
-import '../Calendar/CalendarItem.css'
+import Calendar from 'react-calendar';
+import '../Calendar/CalendarItem.css';
+import iconCalendar from '../../assets/icon-calendar.svg';
+import Transparent from '../Transparent/Transparent';
 
 const EditInvoice = ({ invoice, close }) => {
   const [address, setAddress] = useState(invoice.senderAddress.street);
@@ -26,7 +28,7 @@ const EditInvoice = ({ invoice, close }) => {
   const [clientCountry, setClientCountry] = useState(
     invoice.clientAddress.country
   );
-  const [date, setDate] = useState(invoice.createdAt);
+  const [date, setDate] = useState(new Date(invoice.createdAt));
   const [description, setDescription] = useState(invoice.description);
   const [openDropdown, setOpenDropdown] = useState(false);
   const [dropdownChoice, setDropdownChoice] = useState(invoice.paymentTerms);
@@ -36,6 +38,7 @@ const EditInvoice = ({ invoice, close }) => {
   const myItems = useSelector((state) => state.invoice.items);
   const data = useSelector((state) => state.invoice.invoice);
   const [errorClass, setErrorClass] = useState('');
+  const [calendarDropdown, setCalendarDropdown] = useState(false);
 
   useEffect(() => {
     dispatch(actions.setItems(invoice.items));
@@ -105,6 +108,10 @@ const EditInvoice = ({ invoice, close }) => {
       setErrorClass('error-border');
       return;
     }
+
+    const dateItems = date.toLocaleDateString().split('/');
+    const newDate = dateItems[2] + '-' + dateItems[0] + '-' + dateItems[1];
+
     dispatch(
       actions.saveChanges(
         invoice.status,
@@ -118,11 +125,11 @@ const EditInvoice = ({ invoice, close }) => {
         clientCity,
         clientPostCode,
         clientCountry,
-        date,
+        newDate,
         description,
         dropdownChoice,
         items,
-        invoice.createdAt,
+        newDate,
         invoice.id
       )
     );
@@ -135,8 +142,36 @@ const EditInvoice = ({ invoice, close }) => {
     }
   };
 
+  const formatDate = (date) => {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const dateItems = date.split('/');
+    const monthIndex = dateItems[0];
+    console.log(monthIndex);
+    const dateString =
+      dateItems[1] + ' ' + months[monthIndex - 1] + ' ' + dateItems[2];
+    return dateString;
+  };
+
+  const closeCalendar = () => {
+    setCalendarDropdown(false);
+  };
+
   return (
     <div className="edit-form-content" onClick={closeDropdown}>
+      {calendarDropdown ? <Transparent close={closeCalendar} /> : null}
       <div className="go-back">
         <img src={arrowLeft} alt="icon-arrow-left.svg" />
         <span>Go back</span>
@@ -182,8 +217,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className={`input-post-code ${postalCode === '' ? errorClass : ''
-                }`}
+              className={`input-post-code ${
+                postalCode === '' ? errorClass : ''
+              }`}
               name="post-code"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
@@ -219,8 +255,9 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           name="client-email"
-          className={`input-client-email ${!validateEmail(clientEmail) ? errorClass : ''
-            }`}
+          className={`input-client-email ${
+            !validateEmail(clientEmail) ? errorClass : ''
+          }`}
           placeholder="e.g. email@example.com"
           value={clientEmail}
           onChange={(e) => setClientEmail(e.target.value)}
@@ -231,8 +268,9 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           name="street-to"
-          className={`input-street-to ${clientAddress === '' ? errorClass : ''
-            }`}
+          className={`input-street-to ${
+            clientAddress === '' ? errorClass : ''
+          }`}
           value={clientAddress}
           onChange={(e) => setClientAddress(e.target.value)}
         />
@@ -243,8 +281,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className={`input-city-client ${clientCity === '' ? errorClass : ''
-                }`}
+              className={`input-city-client ${
+                clientCity === '' ? errorClass : ''
+              }`}
               name="city-client"
               value={clientCity}
               onChange={(e) => setClientCity(e.target.value)}
@@ -256,8 +295,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className={`input-post-code-client ${clientPostCode === '' ? errorClass : ''
-                }`}
+              className={`input-post-code-client ${
+                clientPostCode === '' ? errorClass : ''
+              }`}
               name="post-code-client"
               value={clientPostCode}
               onChange={(e) => setClientPostCode(e.target.value)}
@@ -269,8 +309,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className={`input-country-client ${clientCountry === '' ? errorClass : ''
-                }`}
+              className={`input-country-client ${
+                clientCountry === '' ? errorClass : ''
+              }`}
               name="country-client"
               value={clientCountry}
               onChange={(e) => setClientCountry(e.target.value)}
@@ -289,7 +330,38 @@ const EditInvoice = ({ invoice, close }) => {
               value={date}
               onChange={(e) => setDate(e.target.value)}
             /> */}
-            <Calendar />
+            <div
+              className={`input-invoice-date date-div`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+              onClick={() => setCalendarDropdown(true)}
+            >
+              <div>{formatDate(date.toLocaleDateString())}</div>
+              <img src={iconCalendar} />
+            </div>
+
+            {calendarDropdown ? (
+              <Calendar
+                value={date}
+                onChange={(v) => {
+                  if (v < new Date(invoice.createdAt)) {
+                    return;
+                  } else {
+                    return setDate;
+                  }
+                }}
+                onClickDay={(v, e) => {
+                  if (v < new Date(invoice.createdAt)) {
+                    return;
+                  }
+                  setDate(v);
+                  closeCalendar();
+                }}
+              />
+            ) : null}
           </div>
           <div style={{ position: 'relative' }}>
             <label htmlFor="payment-terms" className="labels">
@@ -298,8 +370,9 @@ const EditInvoice = ({ invoice, close }) => {
             <div className="select-dropdown" onClick={openDropDown}>
               <input
                 readOnly
-                value={`Net ${dropdownChoice} ${dropdownChoice === 1 ? 'Day' : 'Days'
-                  }`}
+                value={`Net ${dropdownChoice} ${
+                  dropdownChoice === 1 ? 'Day' : 'Days'
+                }`}
                 type="text"
                 className="input-payment-terms"
                 name="payment-terms"
@@ -354,8 +427,9 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           placeholder="e.g. Graphic Design Service"
-          className={`input-project-description ${description === '' ? errorClass : ''
-            }`}
+          className={`input-project-description ${
+            description === '' ? errorClass : ''
+          }`}
           name="project-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}

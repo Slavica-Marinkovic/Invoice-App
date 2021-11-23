@@ -33,8 +33,11 @@ const Item = (props) => {
           className={`input-item-qty ${
             qty === '' || qty == 0 ? props.errorClass : ''
           }`}
-          value={qty}
+          value={qty == 0 ? '' : qty}
           onChange={(e) => {
+            if (isNaN(e.target.value)) {
+              return;
+            }
             setTotal(price * qty);
             setQty(e.target.value);
           }}
@@ -47,8 +50,11 @@ const Item = (props) => {
           className={`input-item-price ${
             price === '' || price == 0 ? props.errorClass : ''
           }`}
-          value={price}
+          value={price == 0 ? '' : price}
           onChange={(e) => {
+            if (isNaN(e.target.value)) {
+              return;
+            }
             setTotal(price * qty);
             setPrice(e.target.value);
           }}

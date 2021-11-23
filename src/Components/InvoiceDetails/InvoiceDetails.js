@@ -14,7 +14,7 @@ import ActionButtons from './ActionButtons';
 const InvoiceDetails = () => {
   const history = useHistory();
   let { id } = useParams();
-  const [invoice, setInvoice] = useState({});
+  const [invoice, setInvoice] = useState(null);
   const [items, setItems] = useState([]);
   const [totalDue, setToalDue] = useState();
   const [status, setStatus] = useState(invoice ? invoice.status : '');
@@ -92,6 +92,10 @@ const InvoiceDetails = () => {
     }
   }, [itemsStore]);
 
+  useEffect(() => {
+    console.log(invoice);
+  }, [invoice]);
+
   const markPaid = () => {
     if (invoice.status === 'pending') {
       dispatch(actions.markPaid(id));
@@ -123,139 +127,149 @@ const InvoiceDetails = () => {
 
   return (
     <>
-      <Header />
-      {editModal || openModal ? (
-        <Backdrop close={editModal ? closeEditModal : closeModal} />
+      {invoice ? (
+        <>
+          <Header />
+          {editModal || openModal ? (
+            <Backdrop close={editModal ? closeEditModal : closeModal} />
+          ) : null}
+          {editModal ? (
+            <EditInvoice close={closeEditModal} invoice={invoice} />
+          ) : null}
+          <div
+            className="invoice-details-wrapper"
+            onClick={() => {
+              if (editModal) {
+                setEditModal(false);
+              }
+            }}
+          >
+            {openModal ? <DeleteItems id={id} close={closeModal} /> : null}
+            <div className="invoice-details">
+              <div className="details-go-back" onClick={history.goBack}>
+                <img src={arrowLeft} alt="left-arrow.svg" />
+                <span>Go back</span>
+              </div>
+              <div className="details-header">
+                <div className="details-status">
+                  <span>Status</span>
+                  <div className={status}>
+                    <span />
+                    <p>{status}</p>
+                  </div>
+                </div>
+                <ActionButtons
+                  editInvoice={editInvoice}
+                  markPaid={markPaid}
+                  openModalFn={openModalFn}
+                  disabled={disabled}
+                  disabledMark={disabledMark}
+                />
+              </div>
+              <div className="details-main">
+                <div className="id-description-address">
+                  <div className="id-description">
+                    <div className="details-id">
+                      <span>#</span>
+                      {id}
+                    </div>
+                    <span className="description">
+                      {invoice ? invoice.description : ''}
+                    </span>
+                  </div>
+                  <div className="sender-address">
+                    <span className="sender-street">
+                      {invoice.isEm ? invoice.senderAddress.street : null}
+                    </span>
+                    <span className="sender-city">
+                      {invoice.senderAddress
+                        ? invoice.senderAddress.city
+                        : null}
+                    </span>
+                    <span className="sender-postcode">
+                      {invoice.senderAddress
+                        ? invoice.senderAddress.postCode
+                        : null}
+                    </span>
+                    <span className="sender-country">
+                      {invoice.senderAddress
+                        ? invoice.senderAddress.country
+                        : null}
+                    </span>
+                  </div>
+                </div>
+                <div className="date-client-mail">
+                  <div className="details-date">
+                    <div>
+                      <span>Invoice Date</span>
+                      <p className="invoice-date">
+                        {invoice.createdAt
+                          ? formatDate(invoice.createdAt)
+                          : invoice.createdAt}
+                      </p>
+                    </div>
+                    <div>
+                      <span>Payment Due</span>
+                      <p className="payment-due">
+                        {invoice.paymentDue
+                          ? formatDate(invoice.paymentDue)
+                          : invoice.paymentDue}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="client">
+                    <span>Bill to</span>
+                    <p className="details-client-name">{invoice.clientName}</p>
+                    <div className="client-address">
+                      <span className="client-street">
+                        {invoice.clientAddress
+                          ? invoice.clientAddress.street
+                          : null}
+                      </span>
+                      <span className="client-city">
+                        {invoice.clientAddress
+                          ? invoice.clientAddress.city
+                          : null}
+                      </span>
+                      <span className="client-postcode">
+                        {invoice.clientAddress
+                          ? invoice.clientAddress.postCode
+                          : null}
+                      </span>
+                      <span className="client-country">
+                        {invoice.clientAddress
+                          ? invoice.clientAddress.country
+                          : null}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mail">
+                    <span>Sent to</span>
+                    <p className="client-mail">{invoice.clientEmail}</p>
+                  </div>
+                </div>
+                <div className="items-prices">
+                  <div className="items-title">
+                    <span>Item Name</span>
+                    <span>QTY.</span>
+                    <span>Price</span>
+                    <span>Total</span>
+                  </div>
+                  {items.map((item) => (
+                    <DetailsItem key={item.id} data={item} />
+                  ))}
+                </div>
+                <div className="sum">
+                  <div>Amount Due</div>
+                  <div className="invoice-amount">
+                    ${totalDue ? totalDue.toFixed(2) : totalDue}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>{' '}
+        </>
       ) : null}
-      {editModal ? (
-        <EditInvoice close={closeEditModal} invoice={invoice} />
-      ) : null}
-      <div
-        className="invoice-details-wrapper"
-        onClick={() => {
-          if (editModal) {
-            setEditModal(false);
-          }
-        }}
-      >
-        {openModal ? <DeleteItems id={id} close={closeModal} /> : null}
-        <div className="invoice-details">
-          <div className="details-go-back" onClick={history.goBack}>
-            <img src={arrowLeft} alt="left-arrow.svg" />
-            <span>Go back</span>
-          </div>
-          <div className="details-header">
-            <div className="details-status">
-              <span>Status</span>
-              <div className={status}>
-                <span />
-                <p>{status}</p>
-              </div>
-            </div>
-            <ActionButtons
-              editInvoice={editInvoice}
-              markPaid={markPaid}
-              openModalFn={openModalFn}
-              disabled={disabled}
-              disabledMark={disabledMark}
-            />
-          </div>
-          <div className="details-main">
-            <div className="id-description-address">
-              <div className="id-description">
-                <div className="details-id">
-                  <span>#</span>
-                  {id}
-                </div>
-                <span className="description">
-                  {invoice ? invoice.description : ''}
-                </span>
-              </div>
-              <div className="sender-address">
-                <span className="sender-street">
-                  {invoice.senderAddress ? invoice.senderAddress.street : null}
-                </span>
-                <span className="sender-city">
-                  {invoice.senderAddress ? invoice.senderAddress.city : null}
-                </span>
-                <span className="sender-postcode">
-                  {invoice.senderAddress
-                    ? invoice.senderAddress.postCode
-                    : null}
-                </span>
-                <span className="sender-country">
-                  {invoice.senderAddress ? invoice.senderAddress.country : null}
-                </span>
-              </div>
-            </div>
-            <div className="date-client-mail">
-              <div className="details-date">
-                <div>
-                  <span>Invoice Date</span>
-                  <p className="invoice-date">
-                    {invoice.createdAt
-                      ? formatDate(invoice.createdAt)
-                      : invoice.createdAt}
-                  </p>
-                </div>
-                <div>
-                  <span>Payment Due</span>
-                  <p className="payment-due">
-                    {invoice.paymentDue
-                      ? formatDate(invoice.paymentDue)
-                      : invoice.paymentDue}
-                  </p>
-                </div>
-              </div>
-              <div className="client">
-                <span>Bill to</span>
-                <p className="details-client-name">{invoice.clientName}</p>
-                <div className="client-address">
-                  <span className="client-street">
-                    {invoice.clientAddress
-                      ? invoice.clientAddress.street
-                      : null}
-                  </span>
-                  <span className="client-city">
-                    {invoice.clientAddress ? invoice.clientAddress.city : null}
-                  </span>
-                  <span className="client-postcode">
-                    {invoice.clientAddress
-                      ? invoice.clientAddress.postCode
-                      : null}
-                  </span>
-                  <span className="client-country">
-                    {invoice.clientAddress
-                      ? invoice.clientAddress.country
-                      : null}
-                  </span>
-                </div>
-              </div>
-              <div className="mail">
-                <span>Sent to</span>
-                <p className="client-mail">{invoice.clientEmail}</p>
-              </div>
-            </div>
-            <div className="items-prices">
-              <div className="items-title">
-                <span>Item Name</span>
-                <span>QTY.</span>
-                <span>Price</span>
-                <span>Total</span>
-              </div>
-              {items.map((item) => (
-                <DetailsItem key={item.id} data={item} />
-              ))}
-            </div>
-            <div className="sum">
-              <div>Amount Due</div>
-              <div className="invoice-amount">
-                ${totalDue ? totalDue.toFixed(2) : totalDue}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </>
   );
 };

@@ -5,8 +5,10 @@ import arrowDown from '../../assets/icon-arrow-down.svg';
 import Item from './Item/Item';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../store/actions/actions';
-import Calendar from 'react-calendar'
-import '../Calendar/CalendarItem.css'
+import Calendar from 'react-calendar';
+import '../Calendar/CalendarItem.css';
+import iconCalendar from '../../assets/icon-calendar.svg';
+import Transparent from '../Transparent/Transparent';
 
 const AddInvoice = (props) => {
   const dispatch = useDispatch();
@@ -20,12 +22,13 @@ const AddInvoice = (props) => {
   const [clientCity, setClientCity] = useState('');
   const [clientPostCode, setClientPostCode] = useState('');
   const [clientCountry, setClientCountry] = useState('');
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(new Date());
   const [description, setDescription] = useState('');
   const [openDropdown, setOpenDropdown] = useState(false);
   const [dropdownChoice, setDropdownChoice] = useState(7);
   const items = useSelector((state) => state.invoice.items);
   const [errorClass, setErrorClass] = useState('');
+  const [calendarDropdown, setCalendarDropdown] = useState(false);
 
   const openDropDown = () => {
     if (openDropdown) {
@@ -86,6 +89,9 @@ const AddInvoice = (props) => {
     props.updateNav();
     setErrorClass('');
 
+    const dateItems = date.toLocaleDateString().split('/');
+    const newDate = dateItems[2] + '-' + dateItems[0] + '-' + dateItems[1];
+
     dispatch(
       actions.saveDraft(
         'draft',
@@ -99,7 +105,7 @@ const AddInvoice = (props) => {
         clientCity,
         clientPostCode,
         clientCountry,
-        date,
+        newDate,
         description,
         dropdownChoice,
         items
@@ -108,7 +114,6 @@ const AddInvoice = (props) => {
   };
 
   const saveSend = () => {
-    console.log(checkItemVal());
     if (
       address === '' ||
       city === '' ||
@@ -132,6 +137,8 @@ const AddInvoice = (props) => {
       return;
     }
 
+    const dateItems = date.toLocaleDateString().split('/');
+    const newDate = dateItems[2] + '-' + dateItems[0] + '-' + dateItems[1];
     setErrorClass('');
     props.updateNav();
     dispatch(
@@ -147,7 +154,7 @@ const AddInvoice = (props) => {
         clientCity,
         clientPostCode,
         clientCountry,
-        date,
+        newDate,
         description,
         dropdownChoice,
         items
@@ -161,8 +168,38 @@ const AddInvoice = (props) => {
     }
   };
 
+  useEffect(() => {}, [date]);
+
+  const formatDate = (date) => {
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const dateItems = date.split('/');
+    const monthIndex = dateItems[0];
+    console.log(monthIndex);
+    const dateString =
+      dateItems[1] + ' ' + months[monthIndex - 1] + ' ' + dateItems[2];
+    return dateString;
+  };
+
+  const closeCalendar = () => {
+    setCalendarDropdown(false);
+  };
+
   return (
     <div className="add-form-content" onClick={closeDropdown}>
+      {calendarDropdown ? <Transparent close={closeCalendar} /> : null}
       <div className="go-back">
         <img src={arrowLeft} alt="icon-arrow-left.svg" />
         <span>Go back</span>
@@ -205,8 +242,9 @@ const AddInvoice = (props) => {
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               type="text"
-              className={`input-post-code ${postalCode === '' ? errorClass : ''
-                }`}
+              className={`input-post-code ${
+                postalCode === '' ? errorClass : ''
+              }`}
               name="post-code"
             />
           </div>
@@ -240,8 +278,9 @@ const AddInvoice = (props) => {
         <input
           type="text"
           name="client-email"
-          className={`input-client-email ${!validateEmail(clientEmail) ? errorClass : ''
-            }`}
+          className={`input-client-email ${
+            !validateEmail(clientEmail) ? errorClass : ''
+          }`}
           placeholder="e.g. email@example.com"
           value={clientEmail}
           onChange={(e) => setClientEmail(e.target.value)}
@@ -252,8 +291,9 @@ const AddInvoice = (props) => {
         <input
           type="text"
           name="street-to"
-          className={`input-street-to ${clientAddress === '' ? errorClass : ''
-            }`}
+          className={`input-street-to ${
+            clientAddress === '' ? errorClass : ''
+          }`}
           value={clientAddress}
           onChange={(e) => setClientAddress(e.target.value)}
         />
@@ -264,8 +304,9 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className={`input-city-client ${clientCity === '' ? errorClass : ''
-                }`}
+              className={`input-city-client ${
+                clientCity === '' ? errorClass : ''
+              }`}
               name="city-client"
               value={clientCity}
               onChange={(e) => setClientCity(e.target.value)}
@@ -277,8 +318,9 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className={`input-post-code-client ${clientPostCode === '' ? errorClass : ''
-                }`}
+              className={`input-post-code-client ${
+                clientPostCode === '' ? errorClass : ''
+              }`}
               name="post-code-client"
               value={clientPostCode}
               onChange={(e) => setClientPostCode(e.target.value)}
@@ -290,8 +332,9 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className={`input-country-client ${clientCountry === '' ? errorClass : ''
-                }`}
+              className={`input-country-client ${
+                clientCountry === '' ? errorClass : ''
+              }`}
               name="country-client"
               value={clientCountry}
               onChange={(e) => setClientCountry(e.target.value)}
@@ -310,7 +353,29 @@ const AddInvoice = (props) => {
               value={date}
               onChange={(e) => setDate(e.target.value)}
             /> */}
-            <Calendar />
+            <div
+              className={`input-invoice-date date-div`}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+              }}
+              onClick={() => setCalendarDropdown(true)}
+            >
+              <div>{formatDate(date.toLocaleDateString())}</div>
+              <img src={iconCalendar} />
+            </div>
+
+            {calendarDropdown ? (
+              <Calendar
+                value={date}
+                onChange={setDate}
+                onClickDay={(v, e) => {
+                  setDate(v);
+                  closeCalendar();
+                }}
+              />
+            ) : null}
           </div>
           <div style={{ position: 'relative' }}>
             <label htmlFor="payment-terms" className="labels">
@@ -378,8 +443,9 @@ const AddInvoice = (props) => {
         <input
           type="text"
           placeholder="e.g. Graphic Design Service"
-          className={`input-project-description ${description === '' ? errorClass : ''
-            }`}
+          className={`input-project-description ${
+            description === '' ? errorClass : ''
+          }`}
           name="project-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
