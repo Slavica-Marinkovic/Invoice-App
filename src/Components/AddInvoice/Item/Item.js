@@ -56,7 +56,7 @@ const Item = (props) => {
           disabled
           name="item-total"
           className="input-item-total"
-          value={price * qty}
+          value={(price * qty).toFixed(2)}
         />
       </div>
       <div

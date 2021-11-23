@@ -37,7 +37,8 @@ const MainHeader = (props) => {
       <div className="main-header-left">
         <h1>Invoices</h1>
         <p className="first-p">
-          There are <span className="num-invoices">7</span> total invoices
+          There are <span className="num-invoices">{props.data.length}</span>{' '}
+          total invoices
         </p>
         <p className="second-p">
           <span className="num-invoices">7</span> invoices
