@@ -9,6 +9,7 @@ import DeleteItems from '../DeleteItems/DeleteItem';
 import EditInvoice from '../EditInvoice/EditInvoice';
 import Header from '../Header/Header';
 import Backdrop from '../BackDrop/Backdrop';
+import ActionButtons from './ActionButtons';
 
 const InvoiceDetails = () => {
   const history = useHistory();
@@ -147,27 +148,13 @@ const InvoiceDetails = () => {
                 <p>{status}</p>
               </div>
             </div>
-            <div className="action-btns">
-              <button
-                className={`btn action-edit ${disabled ? 'disabled' : ''}`}
-                onClick={editInvoice}
-                disabled={disabled}
-              >
-                Edit
-              </button>
-              <button className="btn action-delete" onClick={openModalFn}>
-                Delete
-              </button>
-              <button
-                className={`btn action-mark-paid ${
-                  disabledMark ? 'disabled-paid' : ''
-                }`}
-                onClick={markPaid}
-                disabled={disabled}
-              >
-                Mark as Paid
-              </button>
-            </div>
+            <ActionButtons
+              editInvoice={editInvoice}
+              markPaid={markPaid}
+              openModalFn={openModalFn}
+              disabled={disabled}
+              disabledMark={disabledMark}
+            />
           </div>
           <div className="details-main">
             <div className="id-description-address">
