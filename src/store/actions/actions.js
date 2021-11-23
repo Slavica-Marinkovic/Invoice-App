@@ -54,10 +54,14 @@ export const saveDraft = (
     totalPrice += Number(item.total);
   });
 
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + dropdownChoice);
+  const dateDue = getFormattedDate(newDate);
+
   const newInvoice = {
     id: makeid(6),
-    createdAt: today,
-    paymentDue: date,
+    createdAt: date,
+    paymentDue: dateDue,
     description: description,
     paymentTerms: dropdownChoice,
     clientName: name,
@@ -84,6 +88,18 @@ export const saveDraft = (
     payload: newInvoice,
   };
 };
+
+function getFormattedDate(date) {
+  var year = date.getFullYear();
+
+  var month = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : '0' + month;
+
+  var day = date.getDate().toString();
+  day = day.length > 1 ? day : '0' + day;
+
+  return year + '-' + month + '-' + day;
+}
 
 export const saveSend = (
   status,
@@ -114,10 +130,14 @@ export const saveSend = (
     totalPrice += Number(item.total);
   });
 
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + dropdownChoice);
+  const dateDue = getFormattedDate(newDate);
+
   const newInvoice = {
     id: makeid(6),
-    createdAt: today,
-    paymentDue: date,
+    createdAt: date,
+    paymentDue: dateDue,
     description: description,
     paymentTerms: dropdownChoice,
     clientName: name,
@@ -136,7 +156,7 @@ export const saveSend = (
       country: clientCountry,
     },
     items: items,
-    total: totalPrice, //TODO
+    total: totalPrice,
   };
 
   return {
@@ -216,10 +236,15 @@ export const saveChanges = (
   items.map((item) => {
     totalPrice += Number(item.total);
   });
+
+  const newDate = new Date(date);
+  newDate.setDate(newDate.getDate() + dropdownChoice);
+  const dateDue = getFormattedDate(newDate);
+
   const newInvoice = {
     id: id,
     createdAt: createdAt,
-    paymentDue: date,
+    paymentDue: dateDue,
     description: description,
     paymentTerms: dropdownChoice,
     clientName: name,

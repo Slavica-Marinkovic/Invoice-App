@@ -10,7 +10,10 @@ const MainHeader = (props) => {
       <div className="main-header-left">
         <h1>Invoices</h1>
         <p className="first-p">
-          There are <span className="num-invoices">{props.data.length}</span>{' '}
+          There are{' '}
+          <span className="num-invoices">
+            {props.data ? props.data.length : 0}
+          </span>{' '}
           total invoices
         </p>
         <p className="second-p">

@@ -127,8 +127,14 @@ const EditInvoice = ({ invoice, close }) => {
     close();
   };
 
+  const closeDropdown = () => {
+    if (openDropdown) {
+      setOpenDropdown(false);
+    }
+  };
+
   return (
-    <div className="edit-form-content">
+    <div className="edit-form-content" onClick={closeDropdown}>
       <div className="go-back">
         <img src={arrowLeft} alt="icon-arrow-left.svg" />
         <span>Go back</span>

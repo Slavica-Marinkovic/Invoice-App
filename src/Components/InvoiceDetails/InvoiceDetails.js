@@ -17,7 +17,7 @@ const InvoiceDetails = () => {
   const [invoice, setInvoice] = useState({});
   const [items, setItems] = useState([]);
   const [totalDue, setToalDue] = useState();
-  const [status, setStatus] = useState(invoice.status);
+  const [status, setStatus] = useState(invoice ? invoice.status : '');
   const [openModal, setOpenModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
@@ -33,13 +33,15 @@ const InvoiceDetails = () => {
     setInvoice(item);
     const newItems = [];
     let due = 0;
-    item.items.map((item) => {
-      newItems.push(item);
-      due += item.total;
-    });
-    setToalDue(due);
-    setStatus(item.status);
-    setItems(newItems);
+    if (item) {
+      item.items.map((item) => {
+        newItems.push(item);
+        due += item.total;
+      });
+      setToalDue(due);
+      setStatus(item.status);
+      setItems(newItems);
+    }
   }, []);
 
   const formatDate = (date) => {
@@ -69,23 +71,25 @@ const InvoiceDetails = () => {
     setInvoice(item);
     const newItems = [];
     let due = 0;
-    item.items.map((item) => {
-      newItems.push(item);
-      due += item.total;
-    });
-    if (item.status === 'pending') {
-      setDisabledMark(false);
-      setDisabled(false);
+    if (item) {
+      item.items.map((item) => {
+        newItems.push(item);
+        due += item.total;
+      });
+      if (item.status === 'pending') {
+        setDisabledMark(false);
+        setDisabled(false);
+      }
+      if (item.status === 'draft' || item.status === 'paid') {
+        setDisabledMark(true);
+      }
+      if (item.status === 'paid') {
+        setDisabled(true);
+      }
+      setToalDue(due);
+      setStatus(item.status);
+      setItems(newItems);
     }
-    if (item.status === 'draft' || item.status === 'paid') {
-      setDisabledMark(true);
-    }
-    if (item.status === 'paid') {
-      setDisabled(true);
-    }
-    setToalDue(due);
-    setStatus(item.status);
-    setItems(newItems);
   }, [itemsStore]);
 
   const markPaid = () => {
@@ -163,7 +167,9 @@ const InvoiceDetails = () => {
                   <span>#</span>
                   {id}
                 </div>
-                <span className="description">{invoice.description}</span>
+                <span className="description">
+                  {invoice ? invoice.description : ''}
+                </span>
               </div>
               <div className="sender-address">
                 <span className="sender-street">

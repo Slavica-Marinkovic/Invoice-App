@@ -15,6 +15,7 @@ import Transparent from '../Components/Transparent/Transparent';
 
 const Home = () => {
   const data = useSelector((state) => state.invoice.invoice);
+  console.log(data);
 
   const [navOpen, setNavOpen] = useState(false);
   const [filteredData, setFilteredData] = useState(data);
