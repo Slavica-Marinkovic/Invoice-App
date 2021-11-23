@@ -8,7 +8,7 @@ const DetailsItem = (props) => {
         <div className="details-item-name">{props.data.name}</div>
         {/*---------------------- u span qty-price treba da ide qty pa x pa price*/}
         <span className="qty-price">
-          {props.data.qty}x{props.data.price}
+          {props.data.quantity}x{props.data.price}
         </span>
         <span className="qty">{props.data.quantity}</span>
         <span className="price">${props.data.price}</span>
