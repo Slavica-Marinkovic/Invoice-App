@@ -224,7 +224,7 @@ export const saveChanges = (
     paymentTerms: dropdownChoice,
     clientName: name,
     clientEmail: clientEmail,
-    status: status,
+    status: 'pending',
     senderAddress: {
       street: address,
       city: city,

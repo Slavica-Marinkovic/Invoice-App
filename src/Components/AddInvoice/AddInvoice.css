@@ -290,6 +290,10 @@ form input[type='text'].input-item-total {
   margin-left: 0.5rem;
 }
 
+.error-border {
+  border: 1px solid red !important;
+}
+
 @media screen and (max-width: 550px) {
   .add-form-content {
     padding: 24px;

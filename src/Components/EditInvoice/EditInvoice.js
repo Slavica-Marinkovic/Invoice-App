@@ -33,6 +33,7 @@ const EditInvoice = ({ invoice, close }) => {
   const dispatch = useDispatch();
   const myItems = useSelector((state) => state.invoice.items);
   const data = useSelector((state) => state.invoice.invoice);
+  const [errorClass, setErrorClass] = useState('');
 
   useEffect(() => {
     dispatch(actions.setItems(invoice.items));
@@ -46,6 +47,10 @@ const EditInvoice = ({ invoice, close }) => {
     setRe(re + 1);
   }, [data]);
 
+  const setError = () => {
+    setErrorClass('error-border');
+  };
+
   const openDropDown = () => {
     if (openDropdown) {
       setOpenDropdown(false);
@@ -54,7 +59,50 @@ const EditInvoice = ({ invoice, close }) => {
     setOpenDropdown(true);
   };
 
+  const checkItemVal = () => {
+    let falseValue = 0;
+    items.map((item) => {
+      if (
+        item.name === '' ||
+        item.price == 0 ||
+        item.qty == 0 ||
+        item.price == '' ||
+        item.qty == ''
+      ) {
+        falseValue += 1;
+      }
+    });
+    return falseValue;
+  };
+
+  function validateEmail(email) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   const saveChanges = () => {
+    if (
+      address === '' ||
+      city === '' ||
+      postalCode === '' ||
+      country === '' ||
+      name === '' ||
+      clientAddress === '' ||
+      !validateEmail(clientEmail) ||
+      clientCity === '' ||
+      clientPostCode === '' ||
+      clientCountry === '' ||
+      description === '' ||
+      items.length === 0
+    ) {
+      setErrorClass('error-border');
+      return;
+    }
+    if (checkItemVal() > 0) {
+      setErrorClass('error-border');
+      return;
+    }
     dispatch(
       actions.saveChanges(
         invoice.status,
@@ -103,7 +151,7 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           name="street-from"
-          className="input-street-from"
+          className={`input-street-from ${address === '' ? errorClass : ''}`}
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
@@ -114,7 +162,7 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className="input-city"
+              className={`input-city  ${city === '' ? errorClass : ''}`}
               name="city"
               value={city}
               onChange={(e) => setCity(e.target.value)}
@@ -126,7 +174,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className="input-post-code"
+              className={`input-post-code ${
+                postalCode === '' ? errorClass : ''
+              }`}
               name="post-code"
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
@@ -138,7 +188,7 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className="input-country"
+              className={`input-country ${country === '' ? errorClass : ''}`}
               name="country"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
@@ -152,7 +202,7 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           name="client-name"
-          className="input-client-name"
+          className={`input-client-name ${name === '' ? errorClass : ''}`}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -162,7 +212,9 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           name="client-email"
-          className="input-client-email"
+          className={`input-client-email ${
+            !validateEmail(clientEmail) ? errorClass : ''
+          }`}
           placeholder="e.g. email@example.com"
           value={clientEmail}
           onChange={(e) => setClientEmail(e.target.value)}
@@ -173,7 +225,9 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           name="street-to"
-          className="input-street-to"
+          className={`input-street-to ${
+            clientAddress === '' ? errorClass : ''
+          }`}
           value={clientAddress}
           onChange={(e) => setClientAddress(e.target.value)}
         />
@@ -184,7 +238,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className="input-city-client"
+              className={`input-city-client ${
+                clientCity === '' ? errorClass : ''
+              }`}
               name="city-client"
               value={clientCity}
               onChange={(e) => setClientCity(e.target.value)}
@@ -196,7 +252,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className="input-post-code-client"
+              className={`input-post-code-client ${
+                clientPostCode === '' ? errorClass : ''
+              }`}
               name="post-code-client"
               value={clientPostCode}
               onChange={(e) => setClientPostCode(e.target.value)}
@@ -208,7 +266,9 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="text"
-              className="input-country-client"
+              className={`input-country-client ${
+                clientCountry === '' ? errorClass : ''
+              }`}
               name="country-client"
               value={clientCountry}
               onChange={(e) => setClientCountry(e.target.value)}
@@ -222,7 +282,7 @@ const EditInvoice = ({ invoice, close }) => {
             </label>
             <input
               type="date"
-              className="input-invoice-date"
+              className={`input-invoice-date ${!date ? errorClass : ''}`}
               name="invoice-date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
@@ -292,7 +352,9 @@ const EditInvoice = ({ invoice, close }) => {
         <input
           type="text"
           placeholder="e.g. Graphic Design Service"
-          className="input-project-description"
+          className={`input-project-description ${
+            description === '' ? errorClass : ''
+          }`}
           name="project-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -315,12 +377,21 @@ const EditInvoice = ({ invoice, close }) => {
           </div>
           <div className="item-list-container">
             {items.map((item) => (
-              <Item key={item.id} data={item} />
+              <Item
+                key={item.id}
+                data={item}
+                error={setError}
+                errorClass={errorClass}
+                check={checkItemVal}
+              />
             ))}
           </div>
           <button
             className="add-new-item"
-            onClick={() => dispatch(actions.addItems())}
+            onClick={() => {
+              setErrorClass('');
+              dispatch(actions.addItems());
+            }}
           >
             + Add New Item
           </button>

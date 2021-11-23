@@ -19,6 +19,8 @@ const InvoiceDetails = () => {
   const [status, setStatus] = useState(invoice.status);
   const [openModal, setOpenModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [disabled, setDisabled] = useState(false);
+  const [disabledMark, setDisabledMark] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -70,14 +72,28 @@ const InvoiceDetails = () => {
       newItems.push(item);
       due += item.total;
     });
+    if (item.status === 'pending') {
+      setDisabledMark(false);
+      setDisabled(false);
+    }
+    if (item.status === 'draft' || item.status === 'paid') {
+      setDisabledMark(true);
+    }
+    if (item.status === 'paid') {
+      setDisabled(true);
+    }
     setToalDue(due);
     setStatus(item.status);
     setItems(newItems);
   }, [itemsStore]);
 
   const markPaid = () => {
-    dispatch(actions.markPaid(id));
-    setStatus('paid');
+    if (invoice.status === 'pending') {
+      dispatch(actions.markPaid(id));
+      setStatus('paid');
+    } else {
+      setDisabledMark(true);
+    }
   };
 
   const openModalFn = () => {
@@ -89,7 +105,11 @@ const InvoiceDetails = () => {
   };
 
   const editInvoice = () => {
-    setEditModal(true);
+    if (invoice.status !== 'paid') {
+      setEditModal(true);
+    } else {
+      setDisabled(true);
+    }
   };
 
   const closeEditModal = () => {
@@ -128,13 +148,23 @@ const InvoiceDetails = () => {
               </div>
             </div>
             <div className="action-btns">
-              <button className="btn action-edit" onClick={editInvoice}>
+              <button
+                className={`btn action-edit ${disabled ? 'disabled' : ''}`}
+                onClick={editInvoice}
+                disabled={disabled}
+              >
                 Edit
               </button>
               <button className="btn action-delete" onClick={openModalFn}>
                 Delete
               </button>
-              <button className="btn action-mark-paid" onClick={markPaid}>
+              <button
+                className={`btn action-mark-paid ${
+                  disabledMark ? 'disabled-paid' : ''
+                }`}
+                onClick={markPaid}
+                disabled={disabled}
+              >
                 Mark as Paid
               </button>
             </div>

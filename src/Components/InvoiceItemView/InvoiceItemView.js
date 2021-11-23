@@ -20,7 +20,12 @@ const InvoiceItemView = (props) => {
         </div>
         <div className="date">Due {props.data.paymentDue}</div>
         <div className="client-name">{props.data.clientName}</div>
-        <div className="amount">${props.data.total.toFixed(2)}</div>
+        <div className="amount">
+          $
+          {typeof props.data.total === 'number'
+            ? props.data.total.toFixed(2)
+            : props.data.total}
+        </div>
         <div className="status-wrapper">
           <div className={props.data.status}>
             <span></span>

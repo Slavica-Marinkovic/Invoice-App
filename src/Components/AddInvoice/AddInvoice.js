@@ -23,6 +23,7 @@ const AddInvoice = (props) => {
   const [openDropdown, setOpenDropdown] = useState(false);
   const [dropdownChoice, setDropdownChoice] = useState(7);
   const items = useSelector((state) => state.invoice.items);
+  const [errorClass, setErrorClass] = useState('');
 
   const openDropDown = () => {
     if (openDropdown) {
@@ -33,8 +34,56 @@ const AddInvoice = (props) => {
     console.log(openDropdown);
   };
 
+  const setError = () => {
+    setErrorClass('error-border');
+  };
+
+  const checkItemVal = () => {
+    let falseValue = 0;
+    items.map((item) => {
+      if (
+        item.name === '' ||
+        item.price == 0 ||
+        item.qty == 0 ||
+        item.price == '' ||
+        item.qty == ''
+      ) {
+        falseValue += 1;
+      }
+    });
+    return falseValue;
+  };
+
+  function validateEmail(email) {
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
   const saveDraft = () => {
+    if (
+      address === '' ||
+      city === '' ||
+      postalCode === '' ||
+      country === '' ||
+      name === '' ||
+      clientAddress === '' ||
+      !validateEmail(clientEmail) ||
+      clientCity === '' ||
+      clientPostCode === '' ||
+      clientCountry === '' ||
+      description === '' ||
+      items.length === 0
+    ) {
+      setErrorClass('error-border');
+      return;
+    }
+    if (checkItemVal() > 0) {
+      setErrorClass('error-border');
+      return;
+    }
     props.updateNav();
+    setErrorClass('');
 
     dispatch(
       actions.saveDraft(
@@ -58,6 +107,31 @@ const AddInvoice = (props) => {
   };
 
   const saveSend = () => {
+    console.log(checkItemVal());
+    if (
+      address === '' ||
+      city === '' ||
+      postalCode === '' ||
+      country === '' ||
+      name === '' ||
+      clientAddress === '' ||
+      !validateEmail(clientEmail) ||
+      clientCity === '' ||
+      clientPostCode === '' ||
+      clientCountry === '' ||
+      description === '' ||
+      items.length === 0
+    ) {
+      setErrorClass('error-border');
+      return;
+    }
+
+    if (checkItemVal() > 0) {
+      setErrorClass('error-border');
+      return;
+    }
+
+    setErrorClass('');
     props.updateNav();
     dispatch(
       actions.saveSend(
@@ -101,7 +175,7 @@ const AddInvoice = (props) => {
           onChange={(e) => setAddress(e.target.value)}
           type="text"
           name="street-from"
-          className="input-street-from"
+          className={`input-street-from ${address === '' ? errorClass : ''}`}
         />
         <div className="place">
           <div>
@@ -112,7 +186,7 @@ const AddInvoice = (props) => {
               value={city}
               onChange={(e) => setCity(e.target.value)}
               type="text"
-              className="input-city"
+              className={`input-city  ${city === '' ? errorClass : ''}`}
               name="city"
             />
           </div>
@@ -124,7 +198,9 @@ const AddInvoice = (props) => {
               value={postalCode}
               onChange={(e) => setPostalCode(e.target.value)}
               type="text"
-              className="input-post-code"
+              className={`input-post-code ${
+                postalCode === '' ? errorClass : ''
+              }`}
               name="post-code"
             />
           </div>
@@ -136,7 +212,7 @@ const AddInvoice = (props) => {
               value={country}
               onChange={(e) => setCountry(e.target.value)}
               type="text"
-              className="input-country"
+              className={`input-country ${country === '' ? errorClass : ''}`}
               name="country"
             />
           </div>
@@ -148,7 +224,7 @@ const AddInvoice = (props) => {
         <input
           type="text"
           name="client-name"
-          className="input-client-name"
+          className={`input-client-name ${name === '' ? errorClass : ''}`}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -158,7 +234,9 @@ const AddInvoice = (props) => {
         <input
           type="text"
           name="client-email"
-          className="input-client-email"
+          className={`input-client-email ${
+            !validateEmail(clientEmail) ? errorClass : ''
+          }`}
           placeholder="e.g. email@example.com"
           value={clientEmail}
           onChange={(e) => setClientEmail(e.target.value)}
@@ -169,7 +247,9 @@ const AddInvoice = (props) => {
         <input
           type="text"
           name="street-to"
-          className="input-street-to"
+          className={`input-street-to ${
+            clientAddress === '' ? errorClass : ''
+          }`}
           value={clientAddress}
           onChange={(e) => setClientAddress(e.target.value)}
         />
@@ -180,7 +260,9 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className="input-city-client"
+              className={`input-city-client ${
+                clientCity === '' ? errorClass : ''
+              }`}
               name="city-client"
               value={clientCity}
               onChange={(e) => setClientCity(e.target.value)}
@@ -192,7 +274,9 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className="input-post-code-client"
+              className={`input-post-code-client ${
+                clientPostCode === '' ? errorClass : ''
+              }`}
               name="post-code-client"
               value={clientPostCode}
               onChange={(e) => setClientPostCode(e.target.value)}
@@ -204,7 +288,9 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="text"
-              className="input-country-client"
+              className={`input-country-client ${
+                clientCountry === '' ? errorClass : ''
+              }`}
               name="country-client"
               value={clientCountry}
               onChange={(e) => setClientCountry(e.target.value)}
@@ -218,7 +304,7 @@ const AddInvoice = (props) => {
             </label>
             <input
               type="date"
-              className="input-invoice-date"
+              className={`input-invoice-date ${!date ? errorClass : ''}`}
               name="invoice-date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
@@ -290,7 +376,9 @@ const AddInvoice = (props) => {
         <input
           type="text"
           placeholder="e.g. Graphic Design Service"
-          className="input-project-description"
+          className={`input-project-description ${
+            description === '' ? errorClass : ''
+          }`}
           name="project-description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
@@ -313,16 +401,44 @@ const AddInvoice = (props) => {
           </div>
           <div className="item-list-container">
             {items.map((item) => {
-              return <Item key={item.id} data={item} />;
+              return (
+                <Item
+                  key={item.id}
+                  data={item}
+                  error={setError}
+                  errorClass={errorClass}
+                />
+              );
             })}
           </div>
           <button
             className="add-new-item"
-            onClick={() => dispatch(actions.addItems())}
+            onClick={() => {
+              setErrorClass('');
+              dispatch(actions.addItems());
+            }}
           >
             + Add New Item
           </button>
         </div>
+        {errorClass !== '' ? (
+          <div
+            style={{
+              display: 'flex',
+              color: 'red',
+              marginTop: '5px',
+              marginBottom: '30px',
+              fontSize: '10px',
+              flexDirection: 'column',
+              lineHeight: '15px',
+              letterSpacing: '-0.208333px',
+              fontWeight: '500',
+            }}
+          >
+            <span>-All fields must be added</span>
+            <span>-An item must be added</span>
+          </div>
+        ) : null}
         <div className="add-form-bottom">
           <button className="discard" onClick={props.updateNav}>
             Discard

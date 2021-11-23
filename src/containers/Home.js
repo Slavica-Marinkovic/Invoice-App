@@ -74,7 +74,6 @@ const Home = () => {
       ) : null}
       <Header />
       <div
-        style={{ opacity: navOpen ? '0.5' : '1' }}
         onClick={(e) => {
           if (navOpen) {
             setNavOpen(false);

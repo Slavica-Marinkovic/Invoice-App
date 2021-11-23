@@ -21,7 +21,7 @@ const Item = (props) => {
         <input
           type="text"
           name="item-name"
-          className="input-item-name"
+          className={`input-item-name ${name === '' ? props.errorClass : ''}`}
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
@@ -30,7 +30,9 @@ const Item = (props) => {
         <input
           type="text"
           name="item-qty"
-          className="input-item-qty"
+          className={`input-item-qty ${
+            qty === '' || qty == 0 ? props.errorClass : ''
+          }`}
           value={qty}
           onChange={(e) => {
             setTotal(price * qty);
@@ -42,7 +44,9 @@ const Item = (props) => {
         <input
           type="text"
           name="item-price"
-          className="input-item-price"
+          className={`input-item-price ${
+            price === '' || price == 0 ? props.errorClass : ''
+          }`}
           value={price}
           onChange={(e) => {
             setTotal(price * qty);
