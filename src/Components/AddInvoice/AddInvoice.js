@@ -38,6 +38,10 @@ const AddInvoice = (props) => {
     setOpenDropdown(true);
   };
 
+  useEffect(() => {
+    dispatch(actions.clearItems());
+  }, []);
+
   const setError = () => {
     setErrorClass('error-border');
   };
@@ -211,7 +215,18 @@ const AddInvoice = (props) => {
         }}
       >
         <label htmlFor="street-from" className="labels">
-          Street Address
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <span>Street Address</span>
+
+            {errorClass && address === '' ? (
+              <span style={{ color: 'red' }}>can't be empty</span>
+            ) : null}
+          </div>
         </label>
         <input
           value={address}
@@ -262,7 +277,18 @@ const AddInvoice = (props) => {
         </div>
         <p className="bill">Bill to</p>
         <label htmlFor="client-name" className="labels">
-          Client's Name
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <span>Client's Name</span>
+
+            {errorClass && name === '' ? (
+              <span style={{ color: 'red' }}>can't be empty</span>
+            ) : null}
+          </div>
         </label>
         <input
           type="text"
@@ -272,7 +298,18 @@ const AddInvoice = (props) => {
           onChange={(e) => setName(e.target.value)}
         />
         <label htmlFor="client-email" className="labels">
-          Client's Email
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <span>Client's Email</span>
+
+            {errorClass && !validateEmail(clientEmail) ? (
+              <span style={{ color: 'red' }}>invalid format</span>
+            ) : null}
+          </div>
         </label>
         <input
           type="text"
@@ -285,7 +322,18 @@ const AddInvoice = (props) => {
           onChange={(e) => setClientEmail(e.target.value)}
         />
         <label htmlFor="street-to" className="labels">
-          Street Address
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <span>Street Address</span>
+
+            {errorClass && clientAddress === '' ? (
+              <span style={{ color: 'red' }}>can't be empty</span>
+            ) : null}
+          </div>
         </label>
         <input
           type="text"
@@ -431,7 +479,18 @@ const AddInvoice = (props) => {
           </div>
         </div>
         <label htmlFor="project-description" className="labels">
-          Project Description
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <span>Project Description</span>
+
+            {errorClass && description === '' ? (
+              <span style={{ color: 'red' }}>can't be empty</span>
+            ) : null}
+          </div>
         </label>
         <input
           type="text"

@@ -7,6 +7,7 @@ export const MARK_PAID = 'MARK_PAID';
 export const DELETE_INVOICE = 'DELETE_INVOICE';
 export const SET_ITEMS = 'SET_ITEMS';
 export const SAVE_CHANGES = 'SAVE_CHANGES';
+export const CLEAR_ITEMS = 'CLEAR_ITEMS';
 
 export const makeid = () => {
   let result = '';
@@ -270,5 +271,11 @@ export const saveChanges = (
     type: SAVE_CHANGES,
     payload: newInvoice,
     id: id,
+  };
+};
+
+export const clearItems = () => {
+  return {
+    type: CLEAR_ITEMS,
   };
 };

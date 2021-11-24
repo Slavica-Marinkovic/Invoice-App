@@ -1,6 +1,7 @@
 import {
   ADD_ITEMS,
   APP_LOAD,
+  CLEAR_ITEMS,
   DELETE_INVOICE,
   DELETE_ITEMS,
   makeid,
@@ -81,6 +82,11 @@ export default (state = initialState, action) => {
         (item) => item.id === action.payload.id
       );
       state.invoice[indexInvoice] = action.payload;
+      return {
+        ...state,
+        items: [{ name: '', quantity: 0, price: 0, total: 0, id: makeid() }],
+      };
+    case CLEAR_ITEMS:
       return {
         ...state,
         items: [{ name: '', quantity: 0, price: 0, total: 0, id: makeid() }],
