@@ -3,7 +3,7 @@ import "./Header.css";
 import logo from "../../assets/logo.svg"
 import moon from "../../assets/icon-moon.svg"
 import avatar from "../../assets/image-avatar.jpg"
-
+import Theme from "../Theme/Theme";
 
 function Header() {
     return (
@@ -12,9 +12,10 @@ function Header() {
                 <img src={logo} alt="logo.svg" />
             </div>
             <div className="mode">
-                <div className="moon">
+                {/* <div className="moon">
                     <img src={moon} alt="moon.svg" />
-                </div>
+                </div> */}
+                <Theme />
                 <div className="avatar">
                     <img src={avatar} alt="avatar.jpg" />
                 </div>

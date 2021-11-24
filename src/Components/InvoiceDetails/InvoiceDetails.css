@@ -14,21 +14,21 @@
   font-size: 12px;
   line-height: 15px;
   font-weight: 700;
-  color: rgb(12, 14, 22);
+  color: var(--font-color);
   margin-left: 20px;
 }
 .details-go-back:hover {
   cursor: pointer;
 }
 .details-go-back:hover span {
-  color: #7e88c3;
+  color: var(--special-purple);
 }
 .details-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 20px 32px;
-  background-color: #fff;
+  background-color: var(--items);
   box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
   border-radius: 8px;
   margin-bottom: 1.5rem;
@@ -40,7 +40,7 @@
 .details-status > span {
   margin-right: 1rem;
   font-weight: 500;
-  color: #858bb2;
+  color: var(--special-purple);
 }
 .paid {
   display: flex;
@@ -82,51 +82,51 @@
   letter-spacing: -0.25px;
 }
 .action-edit {
-  background-color: #f9fafe;
-  color: #7e88c3;
+  background-color: var(--edit);
+  color: var(--special-purple);
 }
 .action-edit:hover {
-  background: #dfe3fa;
+  background: var(--edit-hover);
   cursor: pointer;
 }
 
 .disabled:hover {
   cursor: not-allowed !important;
-  background-color: #f9fafe !important;
+  background-color: var(--edit) !important;
 }
 
 .action-delete {
-  background: #ec5757;
-  color: #fff;
+  background: var(--red);
+  color: var(--white);
 }
 .action-delete:hover {
   background: #ff9797;
   cursor: pointer;
 }
 .action-mark-paid {
-  background: #7c5dfa;
-  color: #fff;
+  background: var(--purple);
+  color: var(--white);
 }
 .action-mark-paid:hover {
-  background: #9277ff;
+  background: var(--purple-hover);
   cursor: pointer;
 }
 
 .disabled-paid:hover {
-  background: #7c5dfa;
+  background: var(--purple);
   cursor: not-allowed;
 }
 
 .details-main {
   padding: 3rem;
-  background-color: #fff;
+  background-color: var(--items);
   box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
   border-radius: 8px;
   margin-bottom: 160px;
 }
 .details-main span {
   display: block;
-  color: #7e88c3;
+  color: var(--special-purple);
   font-style: normal;
   font-weight: 500;
   font-size: 11px;
@@ -145,7 +145,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.8px;
-  color: #0c0e16;
+  color: var(--font-color);
   margin-bottom: 0.5rem;
 }
 .details-id span {
@@ -154,7 +154,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.8px;
-  color: #888EB0;
+  color: var(--grey);
 }
 .sender-address {
   text-align: right;
@@ -181,7 +181,7 @@
   font-size: 15px;
   line-height: 20px;
   letter-spacing: -0.3125px;
-  color: #0c0e16;
+  color: var(--font-color);
   margin-top: 12px;
 }
 .details-date > div:first-of-type {
@@ -195,7 +195,7 @@
 }
 .items-prices {
   padding: 32px 32px 40px 32px;
-  background: #f9fafe;
+  background: var(--edit);
   border-radius: 8px 8px 0px 0px;
   margin-top: 3rem;
 }
@@ -204,7 +204,7 @@
   font-size: 11px;
   line-height: 18px;
   letter-spacing: -0.22px;
-  color: #7e88c3;
+  color: var(--special-purple);
 }
 .items-title {
   display: grid;
@@ -242,7 +242,7 @@
   font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.25px;
-  color: #0c0e16;
+  color: var(--font-color);
 }
 .details-item .qty {
   justify-self: center;
@@ -255,9 +255,9 @@
 }
 .sum {
   padding: 24px 32px;
-  background: #373b53;
+  background: var(--sum);
   border-radius: 0px 0px 8px 8px;
-  color: #fff;
+  color: var(--white);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -289,7 +289,7 @@
 @media screen and (max-width: 660px) {
   .action-btns {
     position: fixed;
-    background-color: #fff;
+    background-color: var(--items);
     width: 100vw;
     bottom: 0;
     left: 0;

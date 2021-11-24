@@ -5,7 +5,7 @@
   transform: translate(-50%, -50%);
   max-width: 384px;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: var(--background);
   box-shadow: 0px 10px 10px -10px rgba(72, 84, 159, 0.100397);
   padding: 48px;
   z-index: 60;
@@ -16,14 +16,14 @@
   line-height: 32px;
   letter-spacing: -0.5px;
   font-weight: 700;
-  color: rgb(12, 14, 22);
+  color: var(--font-color);
 }
 .delete-modal p {
   font-size: 12px;
   line-height: 22px;
   letter-spacing: -0.25px;
   font-weight: 500;
-  color: rgb(136, 142, 176);
+  color: var(--grey);
   margin: 0 0 20px 0;
 }
 .modal-btns {
@@ -36,8 +36,8 @@
   font-size: 12px;
   font-weight: 700;
   line-height: 15px;
-  color: rgb(126, 136, 195);
-  background-color: rgb(249, 250, 254);
+  color: var(--special-purple);
+  background-color: var(--edit);
   border-radius: 24px;
   margin-right: 7px;
 }
@@ -48,15 +48,15 @@
   line-height: 15px;
   font-weight: 700;
   color: #fff;
-  background-color: rgb(236, 87, 87);
+  background-color: var(--red);
 }
 .cancel:hover {
   cursor: pointer;
-  background-color: rgb(223, 227, 250);
+  background-color: var(--grey);
 }
 .delete:hover {
   cursor: pointer;
-  background-color: rgb(255, 151, 151);
+  background-color: var(--red-hover);
 }
 @media screen and (max-width: 550px) {
   .delete-modal {

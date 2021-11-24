@@ -10,14 +10,14 @@
   font-size: 32px;
   line-height: 36px;
   font-weight: 700;
-  color: rgb(12, 14, 22);
+  color: var(--font-color);
 }
 .main-header-left p {
   margin-top: 8px;
   font-size: 12px;
   line-height: 15px;
   font-weight: 500;
-  color: rgb(136, 142, 176);
+  color: var(--grey);
 }
 .second-p {
   display: none;
@@ -31,7 +31,7 @@
   font-size: 12px;
   line-height: 15px;
   font-weight: 700;
-  color: rgb(12, 14, 22);
+  color: var(--font-color);
   margin-right: 16px;
 }
 .main-header-right p:hover {
@@ -46,17 +46,17 @@
 .newInvoice-btn {
   display: flex;
   align-items: center;
-  background-color: rgb(124, 93, 250);
+  background-color: var(--purple);
   border-radius: 24px;
 }
 .newInvoice-btn:hover {
   cursor: pointer;
-  background-color: rgb(146, 119, 255);
+  background-color: var(--purple-hover);
 }
 .newInvoice-btn img {
   padding: 11px;
   border-radius: 50%;
-  background-color: rgb(255, 255, 255);
+  background-color: var(--white);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -66,7 +66,7 @@
   font-size: 12px;
   line-height: 15px;
   font-weight: 700;
-  color: rgb(255, 255, 255);
+  color: var(--white);
   margin-right: 15px;
 }
 .status-modal {
@@ -74,8 +74,9 @@
   top: 108%;
   right: 48%;
   width: 192px;
-  background-color: #fff;
+  background-color: var(--background);
   border-radius: 8px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
   padding: 24px 78px 24px 24px;
   z-index: 60;
 }
@@ -92,8 +93,8 @@ input[type='checkbox'] {
   appearance: none;
   height: 16px;
   width: 16px;
-  background-color: #dfe3fa;
-  border: 1px solid #dfe3fa;
+  background-color: var(--checkbox-bg);
+  border: 1px solid var(--checkbox-bg);
   border-radius: 2px;
   cursor: pointer;
   display: flex;
@@ -107,7 +108,7 @@ label {
   font-size: 12px;
   line-height: 15px;
   letter-spacing: -0.25px;
-  color: #0c0e16;
+  color: var(--font-color);
   cursor: pointer;
   padding-left: 13px;
 }
@@ -122,11 +123,11 @@ input[type='checkbox']::after {
   display: none;
 }
 input[type='checkbox']:hover {
-  border: 1px solid #7c5dfa;
+  border: 1px solid var(--purple);
 }
 input[type='checkbox']:checked::after {
   display: block;
-  background-color: #7c5dfa;
+  background-color: var(--purple);
 }
 
 @media screen and (max-width: 1440px) {

@@ -1,5 +1,5 @@
 .header {
-  background-color: rgb(37, 41, 69);
+  background-color: var(--header);
   height: 80px;
   width: 100%;
   display: flex;
@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(124, 93, 250);
+  background-color: var(--purple);
   width: 80px;
   height: 100%;
   border-radius: 0 20px 20px 0;
@@ -29,7 +29,7 @@
   height: 103px;
   width: 100%;
   top: 50%;
-  background-color: rgb(146, 119, 255);
+  background-color: var(--purple-hover);
   border-top-left-radius: 20%;
   border-bottom-right-radius: 20%;
 }
@@ -50,13 +50,13 @@
   height: 40px;
   cursor: pointer;
 }
-.moon img {
+.switch-mode img {
   vertical-align: bottom;
   padding: 30px 32px;
   border-right: 1px solid rgb(73, 78, 110);
   cursor: pointer;
 }
-.moon img:hover {
+.switch-mode img:hover {
   filter: brightness(160%);
 }
 @media screen and (min-width: 1440px) {
@@ -78,11 +78,11 @@
     width: 100%;
     height: auto;
   }
-  .moon {
+  .switch-mode {
     width: 100%;
     border-bottom: 1px solid rgb(73, 78, 110);
   }
-  .moon img {
+  .switch-mode img {
     border-right: 0;
     padding: 0 41px 32px 41px;
   }
