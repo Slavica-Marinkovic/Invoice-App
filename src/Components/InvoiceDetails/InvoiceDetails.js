@@ -92,10 +92,6 @@ const InvoiceDetails = () => {
     }
   }, [itemsStore]);
 
-  useEffect(() => {
-    console.log(invoice);
-  }, [invoice]);
-
   const markPaid = () => {
     if (invoice.status === 'pending') {
       dispatch(actions.markPaid(id));
