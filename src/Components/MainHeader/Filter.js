@@ -39,9 +39,9 @@ const Filter = (props) => {
           marginRight: '16px',
         }}
       >
-        <p>
+        <p onClick={props.openDropDown}>
           Filter{' '}
-          <span className="filter-span" onClick={props.openDropDown}>
+          <span className="filter-span" >
             by status
           </span>
         </p>
@@ -52,6 +52,7 @@ const Filter = (props) => {
             }}
             src={downArrow}
             alt="down-arrow.svg"
+            onClick={props.openDropDown}
           />
         </span>
       </div>

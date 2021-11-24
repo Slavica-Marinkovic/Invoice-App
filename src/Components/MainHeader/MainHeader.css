@@ -40,7 +40,7 @@
 .main-header-right > span {
   margin-right: 40px;
 }
-.main-header-right > span {
+.main-header-right > div span {
   cursor: pointer;
 }
 .newInvoice-btn {
