@@ -40,7 +40,7 @@ const Theme = () => {
 
     return (<>
         <div className="switch-mode">
-            {localStorage.getItem('Theme') === 'light-mode' ?
+            {localStorage.getItem('Theme') === 'light-mode' || localStorage.getItem('Theme') == undefined  ?
                 <img src={moon} alt="moon.svg" onClick={ActiveMode} />
                 :
                 <img src={sun} alt="sun.svg" onClick={ActiveMode} />
