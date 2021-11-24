@@ -187,7 +187,6 @@ const AddInvoice = (props) => {
     ];
     const dateItems = date.split('/');
     const monthIndex = dateItems[0];
-    console.log(monthIndex);
     const dateString =
       dateItems[1] + ' ' + months[monthIndex - 1] + ' ' + dateItems[2];
     return dateString;
@@ -346,13 +345,7 @@ const AddInvoice = (props) => {
             <label htmlFor="invoice-date" className="labels">
               Invoice Date
             </label>
-            {/* <input
-              type="date"
-              className={`input-invoice-date ${!date ? errorClass : ''}`}
-              name="invoice-date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            /> */}
+
             <div
               className={`input-invoice-date date-div`}
               style={{
@@ -504,8 +497,8 @@ const AddInvoice = (props) => {
               fontWeight: '500',
             }}
           >
-            <span>-All fields must be added</span>
-            <span>-An item must be added</span>
+            {errorClass !== '' ? <span>-All fields must be added</span> : null}
+            {items.length === 0 ? <span>-An item must be added</span> : null}
           </div>
         ) : null}
         <div className="add-form-bottom">

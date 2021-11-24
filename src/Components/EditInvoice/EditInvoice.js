@@ -159,7 +159,6 @@ const EditInvoice = ({ invoice, close }) => {
     ];
     const dateItems = date.split('/');
     const monthIndex = dateItems[0];
-    console.log(monthIndex);
     const dateString =
       dateItems[1] + ' ' + months[monthIndex - 1] + ' ' + dateItems[2];
     return dateString;
@@ -323,13 +322,7 @@ const EditInvoice = ({ invoice, close }) => {
             <label htmlFor="invoice-date" className="labels">
               Invoice Date
             </label>
-            {/* <input
-              type="date"
-              className={`input-invoice-date ${!date ? errorClass : ''}`}
-              name="invoice-date"
-              value={date}
-              onChange={(e) => setDate(e.target.value)}
-            /> */}
+
             <div
               className={`input-invoice-date date-div`}
               style={{
@@ -473,6 +466,24 @@ const EditInvoice = ({ invoice, close }) => {
             + Add New Item
           </button>
         </div>
+        {errorClass !== '' ? (
+          <div
+            style={{
+              display: 'flex',
+              color: 'red',
+              marginTop: '5px',
+              marginBottom: '30px',
+              fontSize: '10px',
+              flexDirection: 'column',
+              lineHeight: '15px',
+              letterSpacing: '-0.208333px',
+              fontWeight: '500',
+            }}
+          >
+            {errorClass !== '' ? <span>-All fields must be added</span> : null}
+            {items.length === 0 ? <span>-An item must be added</span> : null}
+          </div>
+        ) : null}
         <div className="edit-form-bottom">
           <button className="cancel" onClick={close}>
             Cancel
