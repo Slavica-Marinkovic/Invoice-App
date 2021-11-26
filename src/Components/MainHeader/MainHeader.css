@@ -1,0 +1,175 @@
+.main-header {
+  max-width: 730px;
+  margin: 72px auto 65px auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.main-header-left h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 36px;
+  font-weight: 700;
+  color: var(--font-color);
+}
+.main-header-left p {
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 500;
+  color: var(--grey);
+}
+.second-p {
+  display: none;
+}
+.main-header-right {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.main-header-right p {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 700;
+  color: var(--font-color);
+  margin-right: 16px;
+}
+.main-header-right p:hover {
+  cursor: pointer;
+}
+.main-header-right > span {
+  margin-right: 40px;
+}
+.main-header-right > div span {
+  cursor: pointer;
+}
+.newInvoice-btn {
+  display: flex;
+  align-items: center;
+  background-color: var(--purple);
+  border-radius: 24px;
+}
+.newInvoice-btn:hover {
+  cursor: pointer;
+  background-color: var(--purple-hover);
+}
+.newInvoice-btn img {
+  padding: 11px;
+  border-radius: 50%;
+  background-color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 8px 16px 8px 8px;
+}
+.newInvoice {
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 700;
+  color: var(--white);
+  margin-right: 15px;
+}
+.status-modal {
+  position: absolute;
+  top: 108%;
+  right: 48%;
+  width: 192px;
+  background-color: var(--background);
+  border-radius: 8px;
+  box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
+  padding: 24px 78px 24px 24px;
+  z-index: 60;
+}
+.status-modal > div {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.status-modal > div:last-of-type {
+  margin-bottom: 0;
+}
+
+input[type='checkbox'] {
+  appearance: none;
+  height: 16px;
+  width: 16px;
+  background-color: var(--checkbox-bg);
+  border: 1px solid var(--checkbox-bg);
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  position: relative;
+}
+label {
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: -0.25px;
+  color: var(--font-color);
+  cursor: pointer;
+  padding-left: 13px;
+}
+input[type='checkbox']::after {
+  content: url(/src/assets/icon-check.svg);
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  z-index: 2;
+  border-radius: 2px;
+  display: none;
+}
+input[type='checkbox']:hover {
+  border: 1px solid var(--purple);
+}
+input[type='checkbox']:checked::after {
+  display: block;
+  background-color: var(--purple);
+}
+
+@media screen and (max-width: 1440px) {
+  .main-header {
+    margin: 128px auto 65px auto;
+  }
+}
+@media screen and (max-width: 760px) {
+  .main-header {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .main-header-left h1 {
+    font-size: 20px;
+    line-height: 22px;
+  }
+  .second-span {
+    display: none;
+  }
+  .newInvoice-btn img {
+    margin-right: 8px;
+  }
+  .first-p {
+    display: none;
+  }
+  .second-p {
+    display: block;
+  }
+  .main-header-right > span {
+    margin-right: 20px;
+  }
+  .filter-span {
+    display: none;
+  }
+  .main-header-right p {
+    margin-right: 10px;
+  }
+}
+@media screen and (max-width: 330px) {
+  .main-header-right > span {
+    margin-right: 12px;
+  }
+}

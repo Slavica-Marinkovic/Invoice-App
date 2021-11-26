@@ -1,0 +1,146 @@
+.invoice-list {
+  width: clamp(290px, 87.5%, 730px);
+  margin: 1.5rem auto 0;
+}
+.invoice-item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: var(--items);
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.100397);
+  cursor: pointer;
+  transition: 0.3s ease;
+  border: 1px solid transparent;
+}
+.invoice-item-container:hover {
+  border: 1px solid var(--purple);
+}
+.id {
+  width: 87px;
+  letter-spacing: -0.25px;
+  color: var(--font-color);
+  grid-area: id;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+}
+.id span {
+  font-family: Spartan;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 12px;
+  line-height: 15px;
+
+  letter-spacing: -0.25px;
+
+  color: var(--special-purple);
+}
+.date {
+  width: 143px;
+  letter-spacing: -0.25px;
+  color: var(--grey);
+  grid-area: date;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
+.client-name {
+  width: 136px;
+  letter-spacing: -0.25px;
+  color: var(--grey);
+  grid-area: client;
+  justify-self: end;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 15px;
+}
+.amount {
+  width: 130px;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.8px;
+  color: var(--font-color);
+  grid-area: amount;
+}
+.status-wrapper {
+  display: flex;
+  align-items: center;
+  grid-area: status;
+  justify-self: end;
+}
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 104px;
+  height: 40px;
+  background-color: rgba(51, 214, 159, 0.0571);
+  color: #33d69f;
+  border-radius: 6px;
+}
+.status span {
+  display: inline-block;
+  min-width: 0.5rem;
+  min-height: 0.5rem;
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  background: #33d69f;
+}
+.status p {
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 15px;
+}
+.arrow-img {
+  width: auto;
+  margin-left: 20px;
+}
+@media screen and (max-width: 550px) {
+  .invoice-item-container {
+    display: grid;
+    justify-content: space-between;
+    padding: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 39px 23px 24px;
+    grid-template-areas:
+      'id client'
+      'date status'
+      'amount status';
+  }
+  .arrow-img {
+    display: none;
+  }
+  .client-name {
+    width: auto;
+  }
+  .status-wrapper {
+    width: auto;
+  }
+}
+@media screen and (max-width: 630px) {
+  .invoice-item-container {
+    display: grid;
+    justify-content: space-between;
+    padding: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 39px 23px 24px;
+    grid-template-areas:
+      'id client'
+      'date status'
+      'amount status';
+  }
+  .arrow-img {
+    display: none;
+  }
+  .client-name {
+    width: auto;
+  }
+  .status-wrapper {
+    width: auto;
+  }
+}
